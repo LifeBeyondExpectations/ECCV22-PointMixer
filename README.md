@@ -6,7 +6,7 @@ Official pytorch implementation for "PointMixer" (ECCV 2022)
 
 [Paper](https://arxiv.org/pdf/2111.11187) [Project page] [Youtube] [PPT]
 
-<img src="./etc/teaser.jpg" width="300" height="300"> 
+<img src="./fig/teaser.jpg" width="300" height="300"> 
 
 - **All the implementation will be released soon.**
 
