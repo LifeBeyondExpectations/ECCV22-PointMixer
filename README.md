@@ -13,25 +13,6 @@ Official pytorch implementation for "PointMixer" (ECCV 2022)
 ## Environment
 We provide the ways of building the environment, docker and conda.  
 
-### Docker (cuda 10.2)
-```
-# Pull docker image
-docker pull jaesungchoe/pointmixer:0.1
-
-# create your own container and attach to the container.
-# (for instance) docker run -it --gpus '"device=0,1"' --name pointmixer --shm-size 32G --net=host -e NVIDIA_VISIBLE_DEVICES=0,1 jaesungchoe/pointmixer:0.1
-# docker start pointmixer
-# docker attach pointmixer
-# cd /root/
-
-# pull the code in your container
-git pull https://github.com/LifeBeyondExpectations/PointMixer/
-cd PointMixer
-
-# compile CUDA binary 
-sh env_setup.sh
-```
-
 ### Docker (cuda 11.1)
 ```
 # Pull docker image
