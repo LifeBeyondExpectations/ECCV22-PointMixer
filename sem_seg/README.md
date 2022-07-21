@@ -31,3 +31,7 @@ docker attach pointmixer
 ## Run
 ### Train
 ### Test
+
+## Quantitative results
+### S3DIS (TBU)
+### ScanNet (TBU)
