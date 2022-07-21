@@ -1,19 +1,33 @@
-## Environment 
+# 3D Semantic Segmentation 
+This sub-repository includes the implementation of the three baselines with the S3DIS and ScanNet datasets.
+- PointMixer (ours)
+- PointTransformer, ICCV 2021
+- PointNet++, Neurips 2017
+
+
+
+## Environments 
 ### Docker (cuda 11.1)
 ```
-# Pull docker image
+# Pull docker image.
 docker pull jaesungchoe/pointmixer:cuda11.1
 
 # create your own container and attach to the container.
-# (for instance) docker run -it --gpus '"device=0"' --name pointmixer --shm-size 16G --net=host -e NVIDIA_VISIBLE_DEVICES=0 jaesungchoe/pointmixer:cuda11.1
-# docker start pointmixer
-# docker attach pointmixer
+docker run -it --gpus '"device=0"' --name pointmixer --shm-size 16G \
+  --net=host -e NVIDIA_VISIBLE_DEVICES=0 jaesungchoe/pointmixer:cuda11.1
+docker start pointmixer
+docker attach pointmixer
 ```
+### Conda (TBU)
 
-### S3DIS 
-- TBU (shell)
-- result tables
 
-### ScanNet
-- TBU (shell)
-- result tables
+
+## Dataset preparation
+### S3DIS (TBU)
+### ScanNet (TBU)
+
+
+
+## Run
+### Train
+### Test
