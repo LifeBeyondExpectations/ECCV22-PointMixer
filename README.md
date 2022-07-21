@@ -11,7 +11,7 @@ This is an official implementation for the paper,
 
 
 ## Features
-### 1. Universal point set operator: intra-set, inter-set, hier-set <br/>
+### 1. Universal point set operator: intra-set, inter-set, and hier-set mixing <br/>
 
 <img src="./fig/universal point set operator.PNG" width="560" height="332"> <br/>
 
