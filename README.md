@@ -14,6 +14,8 @@ This is an official implementation for the paper,
 - Symmetric encoder-decoder network for point clouds
 - Parameter efficient design (**6.5M**)
 
+<img src="./fig/universal point set operator.PNG" width="300" height="300"> <br/>
+<img src="./fig/symmetric.PNG" width="300" height="300"> <br/>
 <img src="./fig/teaser.jpg" width="300" height="300"> 
 
 ## References
