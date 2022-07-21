@@ -9,15 +9,18 @@ This is an official implementation for the paper,
 (*: equal contribution)
 
 
+
 ## Features
-- ### Universal point set operator: intra-set, inter-set, hier-set <br/>
+### 1. Universal point set operator: intra-set, inter-set, hier-set <br/>
+
 <img src="./fig/universal point set operator.PNG" width="560" height="332"> <br/>
 
-- ### Symmetric encoder-decoder network for point clouds <br/>
+### 2. Symmetric encoder-decoder network for point clouds <br/>
 <img src="./fig/symmetric.PNG" width="520" height="208"> <br/>
 
-- ### Parameter efficient design (**6.5M**) <br/>
-<img src="./fig/arch.PNG" width="355" height="216"> <br/>
+### 3. Parameter efficient design (**6.5M**) <br/>
+<img src="./fig/arch.PNG" width="617" height="242"> <br/>
+
 
 ## References
 ```
