@@ -12,10 +12,13 @@ This is an official implementation for the paper,
 
 ## Features
 ### 1. Universal point set operator: intra-set, inter-set, and hier-set mixing <br/>
-
+- Newly revisit the use of K-Nearest Neighbors <br/>
+- Can process arbitrary number of points <br/>
 <img src="./fig/universal point set operator.PNG" width="560" height="332"> <br/>
 
 ### 2. Symmetric encoder-decoder network for point clouds <br/>
+- Maintain the hierarchical relation among points <br/>
+- Design learning-based transition up/down layers (i.e., hier-set mixing) <br/>
 <img src="./fig/symmetric.PNG" width="520" height="208"> <br/>
 
 ### 3. Parameter efficient design (**6.5M**) <br/>
