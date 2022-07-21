@@ -1,6 +1,6 @@
 # 3D Semantic Segmentation 
 This sub-repository includes the implementation of the three baselines with the S3DIS and ScanNet datasets.
-- PointMixer (ours)
+- PointMixer, ECCV 2021 (ours)
 - PointTransformer, ICCV 2021
 - PointNet++, Neurips 2017
 
