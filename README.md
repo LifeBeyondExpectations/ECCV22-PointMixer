@@ -19,7 +19,7 @@ This is an official implementation for the paper,
 ### 2. Symmetric encoder-decoder network for point clouds <br/>
 - Maintain the hierarchical relation among points <br/>
 - Design learning-based transition up/down layers (i.e., hier-set mixing) <br/>
-<img src="./fig/symmetric.PNG" width="520" height="208"> <br/>
+<img src="./fig/symmetric.PNG" width="572" height="229"> <br/>
 
 ### 3. Parameter efficient design (**6.5M**) <br/>
 <img src="./fig/arch.PNG" width="617" height="242"> <br/>
