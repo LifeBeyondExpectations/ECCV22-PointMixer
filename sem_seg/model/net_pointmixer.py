@@ -23,12 +23,12 @@ from utils.common_util import AverageMeter, intersectionAndUnionGPU
 seed=0
 pl.seed_everything(seed) # , workers=True
 np.random.seed(seed)
-random.seed(seed) # https://hoya012.github.io/blog/reproducible_pytorch/
+random.seed(seed)
 torch.manual_seed(seed)
 torch.cuda.manual_seed(seed)
 torch.cuda.manual_seed_all(seed) # if use multi-GPU
-# torch.backends.cudnn.deterministic = True
-# torch.backends.cudnn.benchmark = False 
+# torch.backends.cudnn.deterministic=True
+# torch.backends.cudnn.benchmark=False 
 
 class net_pointmixer(pl.LightningModule):
     def __init__(self, args=None):

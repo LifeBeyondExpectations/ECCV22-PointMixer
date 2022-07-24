@@ -44,7 +44,16 @@ RUN pip3 install plyfile
 RUN pip3 install --no-cache-dir torch-scatter -f https://data.pyg.org/whl/torch-1.9.0+cu111.html
 RUN pip3 install setuptools==59.5.0
 
-### Oh My Zsh install for Docker
-# https://github.com/deluan/zsh-in-docker
+### install oh-my-zsh
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC
+RUN apt-get install -y zsh
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
--a 'CASE_SENSITIVE="true"'
+    -t avit
+RUN chsh -s $(which zsh)
+RUN echo "exec zsh" >> /root/.bashrc
+
+### customize oh-my-zsh
+RUN echo "typeset +H _current_dir=\"%{\$fg_bold[blue]%}%~%{\$reset_color%} \"" >> /root/.oh-my-zsh/themes/avit.zsh-theme
+RUN echo "PROMPT='" >> /root/.oh-my-zsh/themes/avit.zsh-theme
+RUN echo "(\$CONDA_DEFAULT_ENV) \$(_user_host)\${_current_dir} \$(git_prompt_info) " >> /root/.oh-my-zsh/themes/avit.zsh-theme
+RUN echo "\$(ruby_prompt_info)%{%(\!.\${fg[red]}.\${fg[white]})%}▶%{\$reset_color%} '" >> /root/.oh-my-zsh/themes/avit.zsh-theme
