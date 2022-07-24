@@ -18,7 +18,10 @@ docker run -it --gpus '"device=0"' --name pointmixer --shm-size 16G \
 docker start pointmixer
 docker attach pointmixer
 ```
-### Conda (TBU)
+### Conda
+```
+conda env create -f environment.yml
+```
 
 
 
