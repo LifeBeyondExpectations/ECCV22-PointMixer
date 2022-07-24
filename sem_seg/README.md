@@ -20,6 +20,7 @@ docker attach pointmixer
 ```
 ### Conda
 ```
+cd ./conda
 conda env create -f environment.yml
 ```
 
