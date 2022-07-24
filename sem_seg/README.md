@@ -19,8 +19,8 @@ docker attach pointmixer
 
 # Train / Test
 cd /code/ECCV22-PointMixer/sem_seg
-sh script/train_s3dis.sh 
-sh script/train_scannet.sh 
+sh script/run_s3dis.sh 
+sh script/run_scannet.sh 
 ```
 ### Conda
 ```
@@ -33,8 +33,8 @@ conda env create -f environment.yml
 # Train / Test
 git clone https://github.com/LifeBeyondExpectations/ECCV22-PointMixer
 cd ./ECCV22-PointMixer/sem_seg
-sh script/train_s3dis.sh 
-sh script/train_scannet.sh 
+sh script/run_s3dis.sh 
+sh script/run_scannet.sh 
 ```
 
 ## Quantitative results
