@@ -9,10 +9,10 @@ This sub-repository includes the implementation of the three baselines with the 
 ## Environments 
 ### Docker (cuda 11.1)
 ```
-# Pull docker image.
+# Pull docker image
 docker pull jaesungchoe/pointmixer:cuda11.1
 
-# create your own container and attach to the container.
+# create your own container and attach to the container
 docker run -it --gpus '"device=0"' --name pointmixer --shm-size 16G \
   --net=host -e NVIDIA_VISIBLE_DEVICES=0 jaesungchoe/pointmixer:cuda11.1
 docker start pointmixer
