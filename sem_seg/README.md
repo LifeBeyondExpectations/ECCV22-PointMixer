@@ -43,9 +43,10 @@ sh script/run_scannet.sh
 ### S3DIS Area5 test
 | Model                             | Params | mAcc (%) | mIoU (%) | Reference |
 |:----------------------------------|--------------------:|:--------:|:--------:|:---------:|
-| MinkowskiNet42 | 37.9M  | 74.1 | 67.2 | [Checkpoint](https://postechackr-my.sharepoint.com/:u:/g/personal/p0125ch_postech_ac_kr/EZcO0DH6QeNGgIwGFZsmL-4BAlikmHAHlBs4JBcS5XfpVQ?download=1) |
+| MinkowskiNet42                    | 37.9M  | 74.1 | 67.2 | [Checkpoint](https://postechackr-my.sharepoint.com/:u:/g/personal/p0125ch_postech_ac_kr/EZcO0DH6QeNGgIwGFZsmL-4BAlikmHAHlBs4JBcS5XfpVQ?download=1) |
+| FastPointTransformer              | 37.9M  | **77.6** | 71.0 | [github](https://github.com/POSTECH-CVLab/FastPointTransformer) |
 | PointTransformer                  | 7.8M   | 76.5 | 70.4 | [Codes from the authors](https://github.com/POSTECH-CVLab/point-transformer) |
-| PointMixer (ours)                 | 6.5M   | 77.4 | 71.4 | TBU |
+| PointMixer (ours)                 | 6.5M   | 77.4 | **71.4** | TBU |
 
 ### ScanNet V2 validation
 | Model                             | Voxel Size  | mAcc (%) | mIoU (%) | Reference |
