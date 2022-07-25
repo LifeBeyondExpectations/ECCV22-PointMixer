@@ -41,28 +41,28 @@ sh script/run_scannet.sh
 
 ## Quantitative results
 ### S3DIS Area5 test
-| Model                             | Params | mAcc (%) | mIoU (%) | Reference |
-|:----------------------------------|--------------------:|:--------:|:--------:|:---------:|
-| MinkowskiNet42                    | 37.9M  | 74.1 | 67.2 | [Checkpoint](https://postechackr-my.sharepoint.com/:u:/g/personal/p0125ch_postech_ac_kr/EZcO0DH6QeNGgIwGFZsmL-4BAlikmHAHlBs4JBcS5XfpVQ?download=1) |
-| FastPointTransformer              | 37.9M  | **77.6** | 71.0 | [github](https://github.com/POSTECH-CVLab/FastPointTransformer) |
-| PointTransformer                  | 7.8M   | 76.5 | 70.4 | [Codes from the authors](https://github.com/POSTECH-CVLab/point-transformer) |
-| PointMixer (ours)                 | 6.5M   | 77.4 | **71.4** | TBU |
+| Voxel Size | Model                |       Params |         mAcc |         mIoU | Reference |
+|:----------:|:---------------------|-------------:|-------------:|-------------:|:---------:|
+|        2cm | MinkowskiNet42       |        37.9M |         74.1 |         67.2 | [Checkpoint](https://postechackr-my.sharepoint.com/:u:/g/personal/p0125ch_postech_ac_kr/EZcO0DH6QeNGgIwGFZsmL-4BAlikmHAHlBs4JBcS5XfpVQ?download=1) |
+|            | FastPointTransformer |        37.9M | :+1:**77.6** |         71.0 | [github](https://github.com/POSTECH-CVLab/FastPointTransformer) |
+|            | PointTransformer     |         7.8M |         76.5 |         70.4 | [Codes from the authors](https://github.com/POSTECH-CVLab/point-transformer) |
+|            | PointMixer (ours)    | :+1:**6.5M** |         77.4 | :+1:**71.4** | TBU |
 
 ### ScanNet V2 validation
-| Model                             | Voxel Size  | mAcc (%) | mIoU (%) | Reference |
-|:----------------------------------|:-----------:|:--------:|:--------:|:---------:|
-| MinkowskiNet42       | 10cm | 70.8 | 60.7 | [Official GitHub](https://github.com/chrischoy/SpatioTemporalSegmentation) |
-| FastPointTransformer | 10cm | 76.1 | 66.5 | - |
-| PointTransformer     | 10cm |    - |    - | - |
-| PointMixer (ours)    | 10cm |    - |    - | - |
-| MinkowskiNet42       |  5cm | 76.3 | 67.0 | [Official GitHub](https://github.com/chrischoy/SpatioTemporalSegmentation) |
-| FastPointTransformer | 10cm | 78.9 | 70.0 | - |
-| PointTransformer     |  5cm |    - |    - | - |
-| PointMixer (ours)    |  5cm |    - |    - | - |
-| MinkowskiNet42       |  2cm | 80.4 | 72.2 | [Official GitHub](https://github.com/chrischoy/SpatioTemporalSegmentation) |
-| FastPointTransformer | 10cm | 81.2 | 72.5 | - |
-| PointTransformer     |  2cm |    - |    - | - |
-| PointMixer (ours)    |  2cm |    - |    - | - |
+| Voxel Size | Model                | mAcc | mIoU | Reference |
+|:----------:|:---------------------|:----:|:----:|:---------:|
+|       10cm | MinkowskiNet42       | 70.8 | 60.7 | [Official GitHub](https://github.com/chrischoy/SpatioTemporalSegmentation) |
+|            | FastPointTransformer | 76.1 | 66.5 | - |
+|            | PointTransformer     |    - |    - | - |
+|            | PointMixer (ours)    |    - |    - | - |
+|        5cm | MinkowskiNet42       | 76.3 | 67.0 | [Official GitHub](https://github.com/chrischoy/SpatioTemporalSegmentation) |
+|            | FastPointTransformer | 78.9 | 70.0 | - |
+|            | PointTransformer     |    - |    - | - |
+|            | PointMixer (ours)    |    - |    - | - |
+|        2cm | MinkowskiNet42       | 80.4 | 72.2 | [Official GitHub](https://github.com/chrischoy/SpatioTemporalSegmentation) |
+|            | FastPointTransformer | 81.2 | 72.5 | - |
+|            | PointTransformer     |    - |    - | - |
+|            | PointMixer (ours)    |    - |    - | - |
 
 ## Dataset preparation
 - Download data
