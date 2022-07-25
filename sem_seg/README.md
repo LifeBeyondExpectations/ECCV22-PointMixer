@@ -1,4 +1,5 @@
 # 3D Semantic Segmentation 
+<img src="./fig/semseg.JPG" width="534" height="222"> <br/>
 This sub-repository includes the implementation of the three baselines with the S3DIS and ScanNet datasets.
 - PointMixer, ECCV 2021 (ours)
 - PointTransformer, ICCV 2021 
