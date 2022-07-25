@@ -50,15 +50,18 @@ sh script/run_scannet.sh
 ### ScanNet V2 validation
 | Model                             | Voxel Size  | mAcc (%) | mIoU (%) | Reference |
 |:----------------------------------|:-----------:|:--------:|:--------:|:---------:|
-| MinkowskiNet42    | 10cm | 70.8 | 60.7 | [Official GitHub](https://github.com/chrischoy/SpatioTemporalSegmentation) |
-| PointTransformer  | 10cm |    - |    - | - |
-| PointMixer (ours) | 10cm |    - |    - | - |
-| MinkowskiNet42    |  5cm | 76.3 | 67.0 | [Official GitHub](https://github.com/chrischoy/SpatioTemporalSegmentation) |
-| PointTransformer  |  5cm |    - | - | - |
-| PointMixer (ours) |  5cm |    - | - | - |
-| MinkowskiNet42    |  2cm | 80.4 | 72.2 | [Official GitHub](https://github.com/chrischoy/SpatioTemporalSegmentation) |
-| PointTransformer  |  2cm |    - | - | - |
-| PointMixer (ours) |  2cm |    - | - | - |
+| MinkowskiNet42       | 10cm | 70.8 | 60.7 | [Official GitHub](https://github.com/chrischoy/SpatioTemporalSegmentation) |
+| FastPointTransformer | 10cm | 76.1 | 66.5 | - |
+| PointTransformer     | 10cm |    - |    - | - |
+| PointMixer (ours)    | 10cm |    - |    - | - |
+| MinkowskiNet42       |  5cm | 76.3 | 67.0 | [Official GitHub](https://github.com/chrischoy/SpatioTemporalSegmentation) |
+| FastPointTransformer | 10cm | 78.9 | 70.0 | - |
+| PointTransformer     |  5cm |    - |    - | - |
+| PointMixer (ours)    |  5cm |    - |    - | - |
+| MinkowskiNet42       |  2cm | 80.4 | 72.2 | [Official GitHub](https://github.com/chrischoy/SpatioTemporalSegmentation) |
+| FastPointTransformer | 10cm | 81.2 | 72.5 | - |
+| PointTransformer     |  2cm |    - |    - | - |
+| PointMixer (ours)    |  2cm |    - |    - | - |
 
 ## Dataset preparation
 - Download data
