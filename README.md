@@ -11,6 +11,7 @@ This is an official implementation for the paper,
 ## We are currently updating this repository :fire:
 <details>
 <summary>Click to expand!</summary>
+
 - [ ] semseg<br/>  
   - [ ] methods
     - [x] ~~pointmixer~~
