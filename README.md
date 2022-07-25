@@ -9,6 +9,8 @@ This is an official implementation for the paper,
 (*: equal contribution)
 
 ## We are currently updating this repository :fire:
+<details>
+<summary>Click to expand!</summary>
 - [ ] semseg<br/>  
   - [ ] methods
     - [x] ~~pointmixer~~
@@ -18,6 +20,7 @@ This is an official implementation for the paper,
   - [ ] scannet weights
 - [ ] objcls<br/>
 - [ ] recon<br/>
+</details>
 
 ## Features
 ### 1. Universal point set operator: intra-set, inter-set, and hier-set mixing <br/>
