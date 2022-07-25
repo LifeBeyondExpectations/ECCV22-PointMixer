@@ -8,7 +8,16 @@ This is an official implementation for the paper,
 
 (*: equal contribution)
 
-
+## We are currently updating this repository :fire:
+- [ ] semseg<br/>  
+  - [ ] methods
+    - [x] ~~pointmixer~~
+    - [ ] point transformer
+    - [ ] pointnet++
+  - [ ] s3dis weights  
+  - [ ] scannet weights
+- [ ] objcls<br/>
+- [ ] recon<br/>
 
 ## Features
 ### 1. Universal point set operator: intra-set, inter-set, and hier-set mixing <br/>
