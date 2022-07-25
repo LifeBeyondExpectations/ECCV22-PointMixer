@@ -3,7 +3,7 @@
 This is an official implementation for the paper,
 > [PointMixer: MLP-Mixer for Point Cloud Understanding](https://arxiv.org/pdf/2111.11187)<br/>
 > [Jaesung Choe*](https://sites.google.com/view/jaesungchoe), [Chunghyun Park*](https://chrockey.github.io/), [Francois Rameau](https://rameau-fr.github.io/), [Jaesik Park](https://jaesik.info/), and [In So Kweon](https://rcv.kaist.ac.kr)<br/>
-> European Conference on Computer Vision (ECCV), Tel Aviv, Israel, 2022<br/>
+> European Conference on Computer Vision (**ECCV**), Tel Aviv, Israel, 2022<br/>
 > [Paper](https://arxiv.org/pdf/2111.11187) [Project] [YouTube] [PPT] [Dataset]<br/>
 
 (*: equal contribution)
