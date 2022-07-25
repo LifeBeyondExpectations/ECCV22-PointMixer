@@ -58,6 +58,35 @@ sh script/run_scannet.sh
 
 
 ## Dataset preparation
-### S3DIS (TBU)
-### ScanNet (TBU)
-
+- Download data
+```
+TBU
+```
+- Run scripts for dataset preparation
+```
+TBU
+```
+- Resulting dataset structure
+```
+${data_dir}
+├── scannet_semseg
+│   ├── scannetv2_test.txt
+│   ├── scannetv2_train.txt
+│   ├── scannetv2_val.txt
+│   ├── test
+│   ├── train
+│       ├── scene0000_00.ply
+│       ├── scene0000_01.ply
+│       └── ...
+└── s3dis
+    ├── list
+    │   ├── s3dis_names.txt
+    │   ├── val5.txt
+    │   └── ...
+    ├── trainval
+    │   ├── 00001071.h5
+    │   └── ...
+    └── trainval_fullarea
+        ├── Area_1_conferenceRoom_1.npy
+        └── ...
+```
