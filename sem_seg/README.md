@@ -41,6 +41,7 @@ sh script/run_scannet.sh
 
 ## Quantitative results
 ### S3DIS Area5 test
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/pointmixer-mlp-mixer-for-point-cloud/semantic-segmentation-on-s3dis-area5)](https://paperswithcode.com/sota/semantic-segmentation-on-s3dis-area5?p=pointmixer-mlp-mixer-for-point-cloud)
 | Voxel Size | Model                |       Params |         mAcc |         mIoU | Reference |
 |:----------:|:---------------------|-------------:|-------------:|-------------:|:---------:|
 |        2cm | MinkowskiNet42       |        37.9M |         74.1 |         67.2 | [Checkpoint](https://postechackr-my.sharepoint.com/:u:/g/personal/p0125ch_postech_ac_kr/EZcO0DH6QeNGgIwGFZsmL-4BAlikmHAHlBs4JBcS5XfpVQ?download=1) |
