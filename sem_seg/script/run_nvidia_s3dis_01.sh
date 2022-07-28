@@ -26,6 +26,8 @@ NUM_TRAIN_BATCH=4
 NUM_VAL_BATCH=2
 NUM_TEST_BATCH=4
 
+
+
 ARCH="pointmixer"
 DATASET="loader_s3dis"
 INTRALAYER="PointMixerIntraSetLayer_ECCV22"
@@ -40,6 +42,7 @@ rm -rf $MYCHECKPOINT
 mkdir -p $MYCHECKPOINT
 # cp -a "../../sem_seg" $MYCHECKPOINT
 cp -a $MYSHELL $MYCHECKPOINT
+cd ../
 sh env_setup.sh
 
 ### TRAIN
@@ -119,3 +122,5 @@ python test_pl.py \
   --nsample 8 16 16 16 16  --drop_rate 0.1  --fea_dim 6  --classes 13 \
   \
   --voxel_size 0.04  --eval_voxel_max 800000  --test_batch 1
+
+cd -
