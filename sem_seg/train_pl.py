@@ -142,7 +142,7 @@ def cli_main():
         max_epochs=args.epochs,
         benchmark=args.cudnn_benchmark,
         strategy='dp',
-        enable_progress_bar=False if 'nvidia' in args.computer else True,
+        enable_progress_bar=False if 'NVIDIA' in args.computer else True,
         resume_from_checkpoint=resume_from_checkpoint)
     
     if args.on_train:
