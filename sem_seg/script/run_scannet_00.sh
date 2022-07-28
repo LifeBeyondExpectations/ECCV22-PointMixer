@@ -11,10 +11,10 @@ S3DIS=/root/dataset/S3DIS/s3dis/
 SAVEROOT="/root/PointMixerSemSeg/"
 
 ### Setup 
-MYSHELL="run_scannet.sh"
+MYSHELL="run_scannet_00.sh"
 DATE_TIME=`date +"%Y-%m-%d"`
 NEPTUNE_PROJ="jaesung.choe/ECCV22-PointMixer-SemSeg"
-COMPUTER="TRAIN_S3DIS"
+COMPUTER="NVIDIA-00"
 export MASTER_ADDR='localhost'
 export NODE_RANK=0
 export CUDA_VISIBLE_DEVICES=0
