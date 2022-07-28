@@ -13,7 +13,7 @@ SAVEROOT="/root/PointMixerSemSeg/"
 ### Setup 
 MYSHELL="run_nvidia_s3dis_02.sh"
 DATE_TIME=`date +"%Y-%m-%d"`
-NEPTUNE_PROJ="jaesung.choe/PointMixerSemSeg"
+NEPTUNE_PROJ="jaesung.choe/ECCV22-PointMixer-SemSeg"
 COMPUTER="S3DIS-NVIDIA-02"
 export MASTER_ADDR='localhost'
 export NODE_RANK=0
