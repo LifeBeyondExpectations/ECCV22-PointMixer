@@ -30,10 +30,10 @@ NUM_TEST_BATCH=4
 
 ARCH="pointmixer"
 DATASET="loader_s3dis"
-INTRALAYER="PointMixerIntraSetLayer_ECCV22"
-INTERLAYER="PointMixerInterSetLayerV3"
-TRANSDOWN="SymmetricTransitionDownBlock_ECCV22"
-TRANSUP="SymmetricTransitionUpBlock_ECCV22"
+INTRALAYER="PointMixerIntraSetLayer"
+INTERLAYER="PointMixerInterSetLayer"
+TRANSDOWN="SymmetricTransitionDownBlock"
+TRANSUP="SymmetricTransitionUpBlock"
 
 MYCHECKPOINT="${SAVEROOT}/${DATE_TIME}__${DATASET}__\
 ${INTRALAYER}__${INTERLAYER}__${TRANSDOWN}__${TRANSUP}__${COMPUTER}/"
