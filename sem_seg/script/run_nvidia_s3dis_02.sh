@@ -11,10 +11,10 @@ S3DIS=/root/dataset/S3DIS/s3dis/
 SAVEROOT="/root/PointMixerSemSeg/"
 
 ### Setup 
-MYSHELL="run_nvidia_scannet_01.sh"
+MYSHELL="run_nvidia_s3dis_02.sh"
 DATE_TIME=`date +"%Y-%m-%d"`
-NEPTUNE_PROJ="jaesung.choe/ECCV22-PointMixer-SemSeg"
-COMPUTER="SCANNET-NVIDIA-01"
+NEPTUNE_PROJ="jaesung.choe/PointMixerSemSeg"
+COMPUTER="S3DIS-NVIDIA-02"
 export MASTER_ADDR='localhost'
 export NODE_RANK=0
 export CUDA_VISIBLE_DEVICES=0
@@ -25,15 +25,13 @@ NUM_GPUS=1
 NUM_TRAIN_BATCH=4
 NUM_VAL_BATCH=2
 NUM_TEST_BATCH=4
-VOX_SIZE=0.05
-LOOP=5
 
 ARCH="pointmixer"
-DATASET="loader_scannet" # "loader_s3dis"
-INTRALAYER="PointMixerIntraSetLayer"
-INTERLAYER="PointMixerInterSetLayer"
-TRANSDOWN="SymmetricTransitionDownBlock"
-TRANSUP="SymmetricTransitionUpBlock"
+DATASET="loader_s3dis"
+INTRALAYER="PointMixerIntraSetLayer_ECCV22"
+INTERLAYER="PointMixerInterSetLayerV3"
+TRANSDOWN="SymmetricTransitionDownBlock_ECCV22"
+TRANSUP="SymmetricTransitionUpBlock_ECCV22"
 
 MYCHECKPOINT="${SAVEROOT}/${DATE_TIME}__${DATASET}__\
 ${INTRALAYER}__${INTERLAYER}__${TRANSDOWN}__${TRANSUP}__${COMPUTER}/"
@@ -42,7 +40,6 @@ rm -rf $MYCHECKPOINT
 mkdir -p $MYCHECKPOINT
 # cp -a "../../sem_seg" $MYCHECKPOINT
 cp -a $MYSHELL $MYCHECKPOINT
-cd ../
 sh env_setup.sh
 
 ### TRAIN
@@ -67,11 +64,9 @@ python train_pl.py \
   --model 'net_pointmixer' --arch $ARCH  \
   --intraLayer $INTRALAYER  --interLayer $INTERLAYER \
   --transdown  $TRANSDOWN --transup $TRANSUP \
-  --nsample 8 16 16 16 16  --drop_rate 0.1  --fea_dim 6  --classes 20  --loop $LOOP \
+  --nsample 8 16 16 16 16  --drop_rate 0.1  --fea_dim 6  --classes 13 \
   \
-  --test_batch 1  --cudnn_benchmark False \
-  --voxel_size $VOX_SIZE  --train_voxel_max 50000  --eval_voxel_max 50000  \
-  --mode_train 'train' --mode_eval 'val'  --aug 'elastic+mink'
+  --voxel_size 0.04  --eval_voxel_max 800000  --test_batch 1  --cudnn_benchmark False
 
 ### TEST (pre-process stage for test dataset)
 python test_split_save.py \
@@ -95,11 +90,9 @@ python test_split_save.py \
   --model 'net_pointmixer' --arch $ARCH  \
   --intraLayer $INTRALAYER  --interLayer $INTERLAYER \
   --transdown  $TRANSDOWN --transup $TRANSUP \
-  --nsample 8 16 16 16 16  --drop_rate 0.1  --fea_dim 6  --classes 20  --loop $LOOP \
+  --nsample 8 16 16 16 16  --drop_rate 0.1  --fea_dim 6  --classes 13 \
   \
-  --test_batch 1  --cudnn_benchmark False \
-  --voxel_size $VOX_SIZE  --train_voxel_max 50000  --eval_voxel_max 50000  \
-  --mode_train 'train' --mode_eval 'val'  --aug 'elastic+mink'
+  --voxel_size 0.04  --eval_voxel_max 800000  --test_batch 1  --cudnn_benchmark False
 
 ### TEST (evaluation)
 python test_pl.py \
@@ -123,10 +116,6 @@ python test_pl.py \
   --model 'net_pointmixer' --arch $ARCH  \
   --intraLayer $INTRALAYER  --interLayer $INTERLAYER \
   --transdown  $TRANSDOWN --transup $TRANSUP \
-  --nsample 8 16 16 16 16  --drop_rate 0.1  --fea_dim 6  --classes 20  --loop $LOOP \
+  --nsample 8 16 16 16 16  --drop_rate 0.1  --fea_dim 6  --classes 13 \
   \
-  --test_batch 1  --cudnn_benchmark False \
-  --voxel_size $VOX_SIZE  --train_voxel_max 50000  --eval_voxel_max 50000  \
-  --mode_train 'train' --mode_eval 'val'  --aug 'elastic+mink'
-
-  cd -
+  --voxel_size 0.04  --eval_voxel_max 800000  --test_batch 1

@@ -40,7 +40,7 @@ ${INTRALAYER}__${INTERLAYER}__${TRANSDOWN}__${TRANSUP}__${COMPUTER}/"
 reset
 rm -rf $MYCHECKPOINT
 mkdir -p $MYCHECKPOINT
-cp -a "../../sem_seg" $MYCHECKPOINT
+# cp -a "../../sem_seg" $MYCHECKPOINT
 cp -a $MYSHELL $MYCHECKPOINT
 cd ../
 sh env_setup.sh
