@@ -1,0 +1,4 @@
+.neptune
+
+model/__pycache__/
+model/network/__pycache__/
