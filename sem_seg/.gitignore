@@ -1,4 +1,5 @@
 .neptune
 
-model/__pycache__/
-model/network/__pycache__/
+__pycache__/
+*.pyc
+*.egg
