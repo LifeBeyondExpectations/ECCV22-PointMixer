@@ -11,10 +11,10 @@ S3DIS=/root/dataset/S3DIS/s3dis/
 SAVEROOT="/root/PointMixerSemSeg/"
 
 ### Setup 
-MYSHELL="run_nvidia_scannet_00.sh"
+MYSHELL="run_nvidia_scannet_04.sh"
 DATE_TIME=`date +"%Y-%m-%d"`
 NEPTUNE_PROJ="jaesung.choe/ECCV22-PointMixer-SemSeg"
-COMPUTER="SCANNET-NVIDIA-00-PointGroup"
+COMPUTER="SCANNET-NVIDIA-04-PointGroup"
 export MASTER_ADDR='localhost'
 export NODE_RANK=0
 export CUDA_VISIBLE_DEVICES=0
@@ -22,12 +22,12 @@ export CUDA_VISIBLE_DEVICES=0
 ### Params
 WORKERS=4
 NUM_GPUS=1
-NUM_TRAIN_BATCH=4
+NUM_TRAIN_BATCH=2
 NUM_VAL_BATCH=2
 NUM_TEST_BATCH=4
-VOX_SIZE=0.02
+VOX_SIZE=0.05
 LOOP=5
-N_PTS=50000
+N_PTS=100000
 
 ARCH="pointmixer"
 DATASET="loader_scannet" # "loader_s3dis"
