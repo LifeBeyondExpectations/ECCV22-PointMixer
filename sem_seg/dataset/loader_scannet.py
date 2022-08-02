@@ -114,7 +114,7 @@ class myImageFloder(Dataset):
         data = torch.load(data_path)
 
         coord, feat, label = data[0], data[1], data[2]
-
+        
         label[label == -100] = self.ignore_label
         
         coord, feat, label = data_prepare(
