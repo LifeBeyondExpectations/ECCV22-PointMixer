@@ -5,6 +5,15 @@ This sub-repository includes the implementation of the three baselines with the 
 - PointTransformer, ICCV 2021 
 - PointNet++, Neurips 2017
 
+## Features
+- Can process arbitrary length of batch size, [COO format](https://nvidia.github.io/MinkowskiEngine/terminology.html?highlight=coo%20format#sparse-tensor).<br/>
+  - No longer use ~~[batch, kNN, channel]~~.<br/>
+- Can reproduce the results using less GPU memory.
+  - 1 x 3090Ti GPU or 2 x 1080Ti GPU (24GB)
+- Plug-and-play Implementation, starting from training to evaluation.
+  - 42 hours for training and 2 hours for evaluation  (~44 hours in total).
+  
+
 ## Implementation
 ### Docker (cuda 11.1)
 ```
