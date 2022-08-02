@@ -1,9 +1,9 @@
 def get_network(args):
 
-    if 'mixer' in args.arch:
+    if 'pointmixer' == args.arch:
         from .pointmixer import getPointMixerSegNet as getNetwork
-        # elif 'pointtrans' in args.arch:
-        #     from .pointtrans import getPointTransSegNet as getNetwork
+    elif 'pointtransformer' == args.arch:
+        from .pointtransformer import getPointTransformerSegNet as getNetwork
         # elif 'pointnet' == args.arch:
         #     from .pointnet   import getPointMixerSegNet as getNetwork
     else:
@@ -18,5 +18,5 @@ def get_network(args):
             'stride': args.downsample,
         }
     model = getNetwork(c=args.fea_dim, k=args.classes, nsample=args.nsample, **kwargs)
-
+    
     return model

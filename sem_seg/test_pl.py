@@ -132,7 +132,7 @@ def cli_main():
         data_list = [item[:-4] for item in data_list if 'Area_{}'.format(args.test_area) in item]
     elif args.dataset == 'loader_scannet':
         # No GT label in test scenes.
-        assert args.mode_eval == 'test' 
+        # assert args.mode_eval == 'test' 
         foldpath = os.path.join(args.scannet_semgseg_root, 'val_split')
         os.makedirs(foldpath, exist_ok=True)
         data_root = str(args.scannet_semgseg_root)
