@@ -28,12 +28,12 @@ NUM_TEST_BATCH=4
 
 
 
-ARCH="pointmixer"
+ARCH="pointtransformer" # "pointmixer"
 DATASET="loader_s3dis"
-INTRALAYER="PointMixerIntraSetLayer"
-INTERLAYER="PointMixerInterSetLayer"
-TRANSDOWN="SymmetricTransitionDownBlock"
-TRANSUP="SymmetricTransitionUpBlock"
+INTRALAYER="PointTransformerIntraSetLayer" # "PointMixerIntraSetLayer"
+INTERLAYER="NoInterSetLayer" # "PointMixerInterSetLayer"
+TRANSDOWN="TransitionDownBlock" # "SymmetricTransitionDownBlock"
+TRANSUP="TransitionUp" # "SymmetricTransitionUpBlock"
 
 MYCHECKPOINT="${SAVEROOT}/${DATE_TIME}__${DATASET}__\
 ${INTRALAYER}__${INTERLAYER}__${TRANSDOWN}__${TRANSUP}__${COMPUTER}/"

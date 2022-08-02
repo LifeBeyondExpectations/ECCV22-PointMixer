@@ -14,7 +14,7 @@ SAVEROOT="/root/PointMixerSemSeg/"
 MYSHELL="run_nvidia_s3dis_00.sh"
 DATE_TIME=`date +"%Y-%m-%d"`
 NEPTUNE_PROJ="jaesung.choe/ECCV22-PointMixer-SemSeg"
-COMPUTER="S3DIS-NVIDIA-00"
+COMPUTER="S3DIS-PointTransformer-00"
 export MASTER_ADDR='localhost'
 export NODE_RANK=0
 export CUDA_VISIBLE_DEVICES=0
@@ -28,19 +28,12 @@ NUM_TEST_BATCH=4
 
 
 
-# ARCH="pointtransformer" # "pointmixer"
-# DATASET="loader_s3dis"
-# INTRALAYER="PointTransformerIntraSetLayer" # "PointMixerIntraSetLayer"
-# INTERLAYER="NoInterSetLayer" # "PointMixerInterSetLayer"
-# TRANSDOWN="TransitionDownBlock" # "SymmetricTransitionDownBlock"
-# TRANSUP="TransitionUp" # "SymmetricTransitionUpBlock"
-
-ARCH="pointmixer"
+ARCH="pointtransformer"
 DATASET="loader_s3dis"
-INTRALAYER="PointMixerIntraSetLayer"
-INTERLAYER="PointMixerInterSetLayer"
-TRANSDOWN="SymmetricTransitionDownBlock"
-TRANSUP="SymmetricTransitionUpBlock"
+INTRALAYER="PointTransformerIntraSetLayer"
+INTERLAYER="NoInterSetLayer"
+TRANSDOWN="TransitionDownBlock"
+TRANSUP="TransitionUp"
 
 MYCHECKPOINT="${SAVEROOT}/${DATE_TIME}__${DATASET}__\
 ${INTRALAYER}__${INTERLAYER}__${TRANSDOWN}__${TRANSUP}__${COMPUTER}/"

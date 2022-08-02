@@ -1,0 +1,1 @@
+docker commit pointmixer-nvidia-cuda11.1-s3dis nvcr.io/nvidian/pmix:cuda11.1-s3dis && docker push nvcr.io/nvidian/pmix:cuda11.1-s3dis
