@@ -15,10 +15,9 @@ This is an official implementation for the paper,
 <summary>Click to expand!</summary>
 
 - [ ] semseg<br/>  
-  - [ ] methods
+  - [x] ~~methods~~
     - [x] ~~pointmixer~~
-    - [ ] point transformer
-    - [ ] pointnet++
+    - [x] ~~point transformer~~    
   - [ ] s3dis weights  
   - [ ] scannet weights
 - [ ] objcls<br/>

@@ -1,9 +1,17 @@
 # 3D Semantic Segmentation 
 <img src="./fig/semseg.JPG" width="534" height="222"> <br/>
-This sub-repository includes the implementation of the three baselines with the S3DIS and ScanNet datasets.
+This sub-repository includes the implementation of the baselines with the S3DIS and ScanNet datasets.
 - PointMixer, ECCV 2022 (ours)
 - PointTransformer, ICCV 2021 
-- PointNet++, Neurips 2017
+
+## Features
+- Can process arbitrary length of batch size, [COO format](https://nvidia.github.io/MinkowskiEngine/terminology.html?highlight=coo%20format#sparse-tensor).<br/>
+  - No longer use ~~[batch, kNN, channel]~~.<br/>
+- Can reproduce the results using less GPU memory.
+  - 1 x 3090Ti GPU or 2 x 1080Ti GPU (24GB)
+- Plug-and-play Implementation, starting from training to evaluation.
+  - 42 hours for training and 2 hours for evaluation  (~44 hours in total).
+  
 
 ## Implementation
 ### Docker (cuda 11.1)
@@ -21,8 +29,8 @@ docker attach pointmixer
 
 # Train / Test
 cd /code/ECCV22-PointMixer/sem_seg
-sh script/run_s3dis.sh 
-sh script/run_scannet.sh 
+sh script/run_s3dis_PointMixer.sh 
+sh script/run_scannet_PointMixer.sh 
 ```
 ### Conda
 ```
@@ -35,8 +43,8 @@ conda env create -f environment.yml
 # Train / Test
 git clone https://github.com/LifeBeyondExpectations/ECCV22-PointMixer
 cd ./ECCV22-PointMixer/sem_seg
-sh script/run_s3dis.sh 
-sh script/run_scannet.sh 
+sh script/run_s3dis_PointMixer.sh
+sh script/run_scannet_PointMixer.sh 
 ```
 
 ## Quantitative results
@@ -66,35 +74,34 @@ sh script/run_scannet.sh
 |            | PointMixer (ours)    |    - |    - | - |
 
 ## Dataset preparation
-- Download data
-```
-TBU
-```
-- Run scripts for dataset preparation
-```
-TBU
-```
-- Resulting dataset structure
+### S3DIS dataset
+- Download data (Please refer to [PAConv](https://github.com/CVMI-Lab/PAConv/tree/main/scene_seg)).
+- Update the dataroot in `script/run_s3dis_PointMixer.sh`.
+
+### ScanNet dataset
+- TBU
+
+### Resulting dataset structure
 ```
 ${data_dir}
-├── scannet_semseg
-│   ├── scannetv2_test.txt
-│   ├── scannetv2_train.txt
-│   ├── scannetv2_val.txt
-│   ├── test
-│   ├── train
-│       ├── scene0000_00.ply
-│       ├── scene0000_01.ply
+├── s3dis
+│   ├── list
+│   │   ├── s3dis_names.txt
+│   │   ├── val5.txt
+│   │   └── ...
+│   ├── trainval
+│   │   ├── 00001071.h5
+│   │   └── ...
+│   └── trainval_fullarea
+│       ├── Area_1_conferenceRoom_1.npy
 │       └── ...
-└── s3dis
-    ├── list
-    │   ├── s3dis_names.txt
-    │   ├── val5.txt
-    │   └── ...
-    ├── trainval
-    │   ├── 00001071.h5
-    │   └── ...
-    └── trainval_fullarea
-        ├── Area_1_conferenceRoom_1.npy
+└── scannet_semseg
+    ├── scannetv2_test.txt
+    ├── scannetv2_train.txt
+    ├── scannetv2_val.txt
+    ├── test
+    └── train
+        ├── scene0000_00.ply
+        ├── scene0000_01.ply
         └── ...
 ```
