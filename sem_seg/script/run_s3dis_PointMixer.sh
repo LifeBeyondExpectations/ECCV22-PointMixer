@@ -11,7 +11,7 @@ S3DIS=/root/dataset/S3DIS/s3dis/
 SAVEROOT="/root/PointMixerSemSeg/"
 
 ### Setup 
-MYSHELL="run_nvidia_s3dis_00.sh"
+MYSHELL="run_s3dis_PointMixer.sh"
 DATE_TIME=`date +"%Y-%m-%d"`
 NEPTUNE_PROJ="jaesung.choe/ECCV22-PointMixer-SemSeg"
 COMPUTER="S3DIS-PointMixer-00"
