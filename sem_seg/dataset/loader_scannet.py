@@ -69,33 +69,41 @@ class myImageFloder(Dataset):
 
         self.mode = mode # self.split = split
         data_root = deepcopy(args.scannet_semgseg_root) # self.data_root = data_root
+        self.data_root = data_root
         self.voxel_size = float(args.voxel_size) # 0.04# self.voxel_size = voxel_size
         # self.voxel_max = voxel_max
         # self.transform = transform
         # self.shuffle_index = shuffle_index
         # self.loop = loop
 
-        if mode == "train" or mode == 'val' or mode == 'trainval':
-            # self.data_list = glob.glob(os.path.join(data_root, mode, "*.pth"))
-            self.data_list = glob.glob(os.path.join(data_root, "train", "*.pth")) + \
-                glob.glob(os.path.join(data_root, "val", "*.pth"))
+        data_list = []
+        if 'train' in mode:
+            data_list += glob.glob(os.path.join(data_root, "train", "*.pth"))
+        if 'val' in mode:
+            data_list += glob.glob(os.path.join(data_root, "val", "*.pth"))
+        if 'test' in mode:
+            data_list += glob.glob(os.path.join(data_root, "val", "*.pth"))
+        assert len(data_list) > 0, f'len(data_list) = {len(data_list):d}'
+
+        if mode == 'train' or mode == 'trainval':
             self.voxel_max = int(args.train_voxel_max)
             self.transform = transform.Compose([
                 transform.RandomRotate(along_z=True),
                 transform.RandomScale(scale_low=0.8, scale_high=1.2),
-                transform.RandomDropColor(color_augment=0.0)
-            ])
+                transform.RandomDropColor(color_augment=0.0)])
             self.shuffle_index = True
             self.loop = int(args.loop)
-        elif mode == 'test':
-            self.data_list = glob.glob(os.path.join(data_root, mode, "*.pth"))
+
+        elif mode == 'test' or mode =='val':
+            # self.data_list = glob.glob(os.path.join(data_root, mode, "*.pth"))
             self.voxel_max = int(args.eval_voxel_max) # 40000
             self.transform = None
             self.shuffle_index = False
             self.loop = 1
-
+            
             self.test_split = test_split
             assert self.test_split is not None
+            self.load_test_data()
         else:
             raise ValueError("no such mode: {}".format(mode))
 
@@ -108,20 +116,58 @@ class myImageFloder(Dataset):
         return len(self.data_list) * self.loop
 
     def __getitem__(self, idx):
-
-        data_idx = idx % len(self.data_list)
-        data_path = self.data_list[data_idx]
-        data = torch.load(data_path)
-
-        coord, feat, label = data[0], data[1], data[2]
         
-        label[label == -100] = self.ignore_label
+        if self.mode == 'train' or self.mode == 'trainval':
+            data_idx = idx % len(self.data_list)
+            data_path = self.data_list[data_idx]
+            data = torch.load(data_path)
+
+            coord, feat, label = data[0], data[1], data[2]
+            
+            label[label == -100] = self.ignore_label
+            
+            coord, feat, label = data_prepare(
+                coord, feat, label, 
+                self.mode, self.voxel_size, self.voxel_max, 
+                self.transform, self.shuffle_index)
         
-        coord, feat, label = data_prepare(
-            coord, feat, label, 
-            self.mode, self.voxel_size, self.voxel_max, 
-            self.transform, self.shuffle_index)
+        elif self.mode == 'test' or self.mode =='val':
+            data_idx = self.data_idx[idx]
+            data_path = self.data_list[data_idx]
+            data = np.load(data_path) 
+
+            pred_idx = data['idx_part']
+            coord = data['coord_part']
+            feat = data['feat_part'] # feat.max() == 255
+            label = data['label_part']
+            offset = data['offset_part']
+
+            coord, feat, label = data_prepare(
+                coord, feat, label, 
+                split=None, voxel_size=None, voxel_max=None, 
+                transform=None, shuffle_index=None)
+            
+            pred_idx = torch.LongTensor(pred_idx)
+
+            label[label == -100] = self.ignore_label
+
+            return coord, feat, label, pred_idx, offset
         
         return coord, feat, label
+    
+    def load_test_data(self):
+        filename = self.test_split + '__' + '*__npts_{:09d}__size0p{:04d}.npz'.format(
+            self.voxel_max, int(self.voxel_size*10000))
+        self.data_list = sorted(glob.glob(os.path.join(self.data_root, 'val_split', filename)))
+        self.data_idx = np.arange(len(self.data_list))
+        print("Totally {} samples in {} set.".format(len(self.data_idx), self.mode))
+        
+        # DO NOT ERASE 
+        #
+        # scenes = self.read_txt(os.path.join(self.data_root, "scannetv2_test.txt"))
+        # self.data_paths = [os.path.join(self.data_root, 'test/%s.ply'%(scene)) for scene in scenes]
+        # # self.data_paths = sorted(glob.glob(os.path.join(self.data_root, 'test/*.ply')))
+        # print("Totally {} samples in {} set.".format(len(self.data_paths), self.mode))       
+
 
 

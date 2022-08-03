@@ -1,6 +1,7 @@
 import os
 import random
 import pdb
+import glob
 
 import numpy as np
 from plyfile import PlyData
@@ -49,8 +50,16 @@ def data_load(data_name):
              data_name+'.npy')
         data = np.load(data_path)  # xyzrgbl, N*7
         coord, feat, label = data[:, :3], data[:, 3:6], data[:, 6]
-    
+
     elif args.dataset == 'loader_scannet':
+        filepath = os.path.join(
+            args.scannet_semgseg_root, 
+            'val',
+            data_name+'.pth')
+        data = torch.load(filepath)
+        coord, feat, label = data[0], data[1], data[2]
+
+    elif args.dataset == 'loader_scannet_js':
         filepath = os.path.join(
             args.scannet_semgseg_root, 
             'train',
@@ -88,9 +97,23 @@ def test():
         # data_list = data_prepare()
         data_root = os.path.join(args.s3dis_root, 'trainval_fullarea')
         data_list = sorted(os.listdir(data_root))
-        data_list = [item[:-4] for item in data_list if 'Area_{}'.format(args.test_area) in item]
+        data_list = [item[:-4] for item in data_list if 
+            'Area_{}'.format(args.test_area) in item]
 
     elif args.dataset == 'loader_scannet':
+        # No GT label in test scenes.
+        assert args.mode_eval == 'val' 
+        foldpath = os.path.join(args.scannet_semgseg_root, 'val_split')
+        os.makedirs(foldpath, exist_ok=True)
+        data_root = os.path.join(args.scannet_semgseg_root, args.mode_eval)
+        pth_list = sorted(glob.glob(os.path.join(data_root, '*.pth')))
+        data_list = []
+        for pth_path in pth_list:
+            pth_file_name = pth_path.split('/')[-1] # 'scene0011_00_inst_nostuff.pth'
+            pth_file_name = pth_file_name[:-4] # 'scene0011_00_inst_nostuff'
+            data_list.append(pth_file_name)
+
+    elif args.dataset == 'loader_scannet_js':
         # No GT label in test scenes.
         assert args.mode_eval == 'val' 
         foldpath = os.path.join(args.scannet_semgseg_root, 'val_split')
