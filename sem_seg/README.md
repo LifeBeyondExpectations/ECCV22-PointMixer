@@ -75,11 +75,12 @@ sh script/run_scannet_PointMixer.sh
 
 ## Dataset preparation
 ### S3DIS dataset
-- Download data (Please refer to [PAConv](https://github.com/CVMI-Lab/PAConv/tree/main/scene_seg)).
+- Download data (Please refer to [PAConv](https://github.com/CVMI-Lab/PAConv/tree/main/scene_seg#dataset)).
 - Update the dataroot in `script/run_s3dis_PointMixer.sh`.
 
 ### ScanNet dataset
-- TBU
+- Download data (Please refer to [Stratified-Transformer](https://github.com/dvlab-research/Stratified-Transformer#scannetv2)).
+- Update the dataroot in `script/run_scannet_PointMixer.sh`.
 
 ### Resulting dataset structure
 ```
@@ -96,12 +97,16 @@ ${data_dir}
 │       ├── Area_1_conferenceRoom_1.npy
 │       └── ...
 └── scannet_semseg
-    ├── scannetv2_test.txt
-    ├── scannetv2_train.txt
-    ├── scannetv2_val.txt
     ├── test
-    └── train
-        ├── scene0000_00.ply
-        ├── scene0000_01.ply
+    │   ├── scene0707_00_inst_nostuff.pth
+    │   └── ...
+    ├── train
+    │   ├── scene0000_00_inst_nostuff.pth
+    │   └── ...
+    └── val
+        ├── scene0011_00_inst_nostuff.pth
         └── ...
 ```
+
+## Acknowledgments
+Our code is based on the wonderful works, [MinkowskiEngine](https://github.com/NVIDIA/MinkowskiEngine), [Point Transformer](https://hszhao.github.io/), [Stratified Transformer](https://github.com/dvlab-research/Stratified-Transformer), [PAConv](https://github.com/CVMI-Lab/PAConv), [Pointnet_Pointnet2_pytorch](https://github.com/yanx27/Pointnet_Pointnet2_pytorch), and [Fast Point Transformer](https://github.com/POSTECH-CVLab/FastPointTransformer). If you use our model, we respectfully ask that you would consider citing these references as well.
