@@ -107,3 +107,6 @@ ${data_dir}
         ├── scene0011_00_inst_nostuff.pth
         └── ...
 ```
+
+## Acknowledgments
+Our code is based on the wonderful works, [MinkowskiEngine](https://github.com/NVIDIA/MinkowskiEngine), [Point Transformer](https://hszhao.github.io/), [Stratified Transformer](https://github.com/dvlab-research/Stratified-Transformer), [PAConv](https://github.com/CVMI-Lab/PAConv), [Pointnet_Pointnet2_pytorch](https://github.com/yanx27/Pointnet_Pointnet2_pytorch), and [Fast Point Transformer](https://github.com/POSTECH-CVLab/FastPointTransformer). If you use our model, we respectfully ask that you would consider citing these references as well.
