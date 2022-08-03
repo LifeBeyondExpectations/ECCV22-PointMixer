@@ -83,6 +83,7 @@ class myImageFloder(Dataset):
             data_list += glob.glob(os.path.join(data_root, "val", "*.pth"))
         if 'test' in mode:
             data_list += glob.glob(os.path.join(data_root, "val", "*.pth"))
+            raise NotImplementedError
         assert len(data_list) > 0, f'len(data_list) = {len(data_list):d}'
 
         if mode == 'train' or mode == 'trainval':
@@ -93,8 +94,9 @@ class myImageFloder(Dataset):
                 transform.RandomDropColor(color_augment=0.0)])
             self.shuffle_index = True
             self.loop = int(args.loop)
+            self.data_list = data_list
 
-        elif mode == 'test' or mode =='val':
+        elif mode == 'val':
             # self.data_list = glob.glob(os.path.join(data_root, mode, "*.pth"))
             self.voxel_max = int(args.eval_voxel_max) # 40000
             self.transform = None
@@ -102,8 +104,10 @@ class myImageFloder(Dataset):
             self.loop = 1
             
             self.test_split = test_split
-            assert self.test_split is not None
-            self.load_test_data()
+            if self.test_split is None:
+                self.data_list = data_list
+            else:
+                self.load_test_data()
         else:
             raise ValueError("no such mode: {}".format(mode))
 
@@ -112,7 +116,9 @@ class myImageFloder(Dataset):
 
     def __getitem__(self, idx):
         
-        if self.mode == 'train' or self.mode == 'trainval':
+        if ((self.mode == 'train') 
+            or (self.mode == 'trainval')
+            or (self.mode == 'val' and self.test_split is None)):
             data_idx = idx % len(self.data_list)
             data_path = self.data_list[data_idx]
             data = torch.load(data_path)
@@ -126,7 +132,7 @@ class myImageFloder(Dataset):
                 self.mode, self.voxel_size, self.voxel_max, 
                 self.transform, self.shuffle_index)
         
-        elif self.mode == 'test' or self.mode =='val':
+        elif (self.mode == 'val' and self.test_split is not None):
             data_idx = self.data_idx[idx]
             data_path = self.data_list[data_idx]
             data = np.load(data_path) 
