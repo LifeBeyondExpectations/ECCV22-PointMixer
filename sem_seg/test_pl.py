@@ -152,6 +152,7 @@ def cli_main():
         data_root = str(args.scannet_semgseg_root)
         scenes = read_txt(os.path.join(data_root, "scannetv2_val.txt"))
         data_list = [scene for scene in scenes]
+        
     else:
         raise NotImplemented
 

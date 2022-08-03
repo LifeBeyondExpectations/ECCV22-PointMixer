@@ -107,11 +107,6 @@ class myImageFloder(Dataset):
         else:
             raise ValueError("no such mode: {}".format(mode))
 
-        ### DEBUG
-        # for idx in range(self.__len__()):
-        #     print(f'idx[{idx:4d}]')
-        #     self.__getitem__(idx=idx)
-
     def __len__(self):
         return len(self.data_list) * self.loop
 

@@ -92,8 +92,7 @@ def test():
 
     if args.dataset == 'loader_s3dis':
         foldpath = os.path.join(args.s3dis_root, 'test_split')
-        os.makedirs(foldpath, exist_ok=True)
-        
+        os.makedirs(foldpath, exist_ok=True)        
         # data_list = data_prepare()
         data_root = os.path.join(args.s3dis_root, 'trainval_fullarea')
         data_list = sorted(os.listdir(data_root))
