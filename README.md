@@ -12,7 +12,7 @@ This is an official implementation for the paper,
 
 ### (TL;DR) Pytorch implementation of `PointMixer`:zap: and `Point Transformer`:zap:
 
-## We are currently updating this repository :fire:
+### We are currently updating this repository :fire:
 <details>
 <summary>Click to expand!</summary>
 
@@ -22,6 +22,7 @@ This is an official implementation for the paper,
     - [x] ~~point transformer~~    
   - [ ] s3dis weights  
   - [ ] scannet weights
+  - [ ] logger option (tensorboard / neptune)
 - [ ] objcls<br/>
 - [ ] recon<br/>
 </details>
