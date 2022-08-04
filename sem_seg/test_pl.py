@@ -196,6 +196,7 @@ def cli_main():
                     args.s3dis_root, 'trainval_fullarea', item+'.npy')
                 data = np.load(data_path)
                 label = data[:, 6] # coord, feat = data[:, :3], data[:, 3:6]
+                mode_eval = 'test'
 
             elif args.dataset == 'loader_scannet':
                 filepath = os.path.join(
@@ -203,6 +204,7 @@ def cli_main():
                     'val', item+'.pth')
                 data = torch.load(filepath)
                 label = np.array(data[2], dtype=np.int32)
+                mode_eval = args.mode_eval # 'val'
 
             elif args.dataset == 'loader_scannet_js':
                 filepath = os.path.join(
@@ -210,6 +212,7 @@ def cli_main():
                 plydata = PlyData.read(filepath)
                 data = plydata.elements[0].data
                 label = np.array(data['label'], dtype=np.int32)
+                mode_eval = args.mode_eval # 'val'
 
             else:
                 raise NotImplemented
@@ -231,7 +234,8 @@ def cli_main():
                 }
 
             test_loader = torch.utils.data.DataLoader(
-                dataset.myImageFloder(args, mode='test', test_split=item), **test_loader_kwargs)
+                dataset.myImageFloder(args, mode=mode_eval, test_split=item), 
+                **test_loader_kwargs)
 
             trainer.test(model=model, dataloaders=test_loader, verbose=True)
 

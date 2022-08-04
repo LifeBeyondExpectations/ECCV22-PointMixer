@@ -82,7 +82,7 @@ class myImageFloder(Dataset):
         if 'val' in mode:
             data_list += glob.glob(os.path.join(data_root, "val", "*.pth"))
         if 'test' in mode:
-            data_list += glob.glob(os.path.join(data_root, "val", "*.pth"))
+            data_list += glob.glob(os.path.join(data_root, "test", "*.pth"))
             raise NotImplementedError
         assert len(data_list) > 0, f'len(data_list) = {len(data_list):d}'
 
@@ -108,6 +108,9 @@ class myImageFloder(Dataset):
                 self.data_list = data_list
             else:
                 self.load_test_data()
+
+        elif mode == 'test':
+            raise NotImplementedError
         else:
             raise ValueError("no such mode: {}".format(mode))
 
@@ -131,6 +134,7 @@ class myImageFloder(Dataset):
                 coord, feat, label, 
                 self.mode, self.voxel_size, self.voxel_max, 
                 self.transform, self.shuffle_index)
+            return coord, feat, label
         
         elif (self.mode == 'val' and self.test_split is not None):
             data_idx = self.data_idx[idx]
@@ -149,12 +153,13 @@ class myImageFloder(Dataset):
                 transform=None, shuffle_index=None)
             
             pred_idx = torch.LongTensor(pred_idx)
-
             label[label == -100] = self.ignore_label
-
             return coord, feat, label, pred_idx, offset
         
-        return coord, feat, label
+        elif mode == 'test':
+            raise NotImplementedError
+        else:
+            raise ValueError("no such mode: {}".format(mode))
     
     def load_test_data(self):
         filename = self.test_split + '__' + '*__npts_{:09d}__size0p{:04d}.npz'.format(
