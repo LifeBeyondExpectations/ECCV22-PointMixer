@@ -1,6 +1,6 @@
 # PointMixer: MLP-Mixer for Point Cloud Understanding
 
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/pointmixer-mlp-mixer-for-point-cloud/semantic-segmentation-on-s3dis-area5)](https://paperswithcode.com/sota/semantic-segmentation-on-s3dis-area5?p=pointnext-revisiting-pointnet-with-improved)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/pointmixer-mlp-mixer-for-point-cloud/semantic-segmentation-on-s3dis-area5)](https://paperswithcode.com/sota/semantic-segmentation-on-s3dis-area5?p=pointmixer-mlp-mixer-for-point-cloud)
 
 This is an official implementation for the paper,
 > [PointMixer: MLP-Mixer for Point Cloud Understanding](https://arxiv.org/pdf/2111.11187)<br/>
@@ -10,17 +10,19 @@ This is an official implementation for the paper,
 
 (*: equal contribution)
 
-## We are currently updating this repository :fire:
+### (TL;DR) Pytorch implementation of `PointMixer`:zap: and `Point Transformer`:zap:
+
+### We are currently updating this repository :fire:
 <details>
 <summary>Click to expand!</summary>
 
 - [ ] semseg<br/>  
-  - [ ] methods
+  - [x] ~~methods~~
     - [x] ~~pointmixer~~
-    - [ ] point transformer
-    - [ ] pointnet++
+    - [x] ~~point transformer~~    
   - [ ] s3dis weights  
   - [ ] scannet weights
+  - [ ] logger option (tensorboard / neptune)
 - [ ] objcls<br/>
 - [ ] recon<br/>
 </details>

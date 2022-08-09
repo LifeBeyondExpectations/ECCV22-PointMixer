@@ -81,7 +81,7 @@ class net_pointmixer(pl.LightningModule):
         pred_dict['output'] = output
         if target.shape[-1] == 1:
             target = target[:, 0]  # for cls
-        loss = nn.CrossEntropyLoss(ignore_index=self.ignore_label)(output, target)        
+        loss = nn.CrossEntropyLoss(ignore_index=self.ignore_label)(output, target)
         loss_dict['loss'] = loss
 
         return pred_dict, loss_dict
@@ -93,7 +93,7 @@ class net_pointmixer(pl.LightningModule):
         target = data_dict['target']
 
         output = output.max(1)[1]
-        n = coord.size(0)
+        n = coord.size(0)        
         count = target.new_tensor([n], dtype=torch.long)
         n = count.item()
         intersection, union, target = \

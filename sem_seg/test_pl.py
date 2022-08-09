@@ -120,7 +120,7 @@ def cli_main():
     trainer = pl.Trainer(
         logger=neptune_logger,
         gpus=1,
-        enable_progress_bar=False if 'nvidia' in args.computer else True,
+        enable_progress_bar=False if 'NVIDIA' in args.computer else True,
     )
 
     # ------------
@@ -130,7 +130,21 @@ def cli_main():
         data_root = os.path.join(args.s3dis_root, 'trainval_fullarea')
         data_list = sorted(os.listdir(data_root))
         data_list = [item[:-4] for item in data_list if 'Area_{}'.format(args.test_area) in item]
+    
     elif args.dataset == 'loader_scannet':
+        # No GT label in test scenes.
+        # assert args.mode_eval == 'test' 
+        foldpath = os.path.join(args.scannet_semgseg_root, 'val_split')
+        os.makedirs(foldpath, exist_ok=True)
+        data_root = os.path.join(args.scannet_semgseg_root, args.mode_eval)
+        pth_list = sorted(glob.glob(os.path.join(data_root, '*.pth')))
+        data_list = []
+        for pth_path in pth_list:
+            pth_file_name = pth_path.split('/')[-1] # 'scene0011_00_inst_nostuff.pth'
+            pth_file_name = pth_file_name[:-4] # 'scene0011_00_inst_nostuff'
+            data_list.append(pth_file_name)
+
+    elif args.dataset == 'loader_scannet_js':
         # No GT label in test scenes.
         # assert args.mode_eval == 'test' 
         foldpath = os.path.join(args.scannet_semgseg_root, 'val_split')
@@ -138,6 +152,7 @@ def cli_main():
         data_root = str(args.scannet_semgseg_root)
         scenes = read_txt(os.path.join(data_root, "scannetv2_val.txt"))
         data_list = [scene for scene in scenes]
+        
     else:
         raise NotImplemented
 
@@ -181,12 +196,24 @@ def cli_main():
                     args.s3dis_root, 'trainval_fullarea', item+'.npy')
                 data = np.load(data_path)
                 label = data[:, 6] # coord, feat = data[:, :3], data[:, 3:6]
+                mode_eval = 'test'
+
             elif args.dataset == 'loader_scannet':
+                filepath = os.path.join(
+                    args.scannet_semgseg_root, 
+                    'val', item+'.pth')
+                data = torch.load(filepath)
+                label = np.array(data[2], dtype=np.int32)
+                mode_eval = args.mode_eval # 'val'
+
+            elif args.dataset == 'loader_scannet_js':
                 filepath = os.path.join(
                     args.scannet_semgseg_root, 'train/%s.ply'%(item))
                 plydata = PlyData.read(filepath)
                 data = plydata.elements[0].data
                 label = np.array(data['label'], dtype=np.int32)
+                mode_eval = args.mode_eval # 'val'
+
             else:
                 raise NotImplemented
             
@@ -207,7 +234,8 @@ def cli_main():
                 }
 
             test_loader = torch.utils.data.DataLoader(
-                dataset.myImageFloder(args, mode='test', test_split=item), **test_loader_kwargs)
+                dataset.myImageFloder(args, mode=mode_eval, test_split=item), 
+                **test_loader_kwargs)
 
             trainer.test(model=model, dataloaders=test_loader, verbose=True)
 

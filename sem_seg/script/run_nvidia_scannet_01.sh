@@ -14,7 +14,7 @@ SAVEROOT="/root/PointMixerSemSeg/"
 MYSHELL="run_nvidia_scannet_01.sh"
 DATE_TIME=`date +"%Y-%m-%d"`
 NEPTUNE_PROJ="jaesung.choe/ECCV22-PointMixer-SemSeg"
-COMPUTER="SCANNET-NVIDIA-01"
+COMPUTER="SCANNET-NVIDIA-01-PointGroup"
 export MASTER_ADDR='localhost'
 export NODE_RANK=0
 export CUDA_VISIBLE_DEVICES=0
@@ -27,6 +27,7 @@ NUM_VAL_BATCH=2
 NUM_TEST_BATCH=4
 VOX_SIZE=0.05
 LOOP=5
+N_PTS=50000
 
 ARCH="pointmixer"
 DATASET="loader_scannet" # "loader_s3dis"
@@ -70,7 +71,7 @@ python train_pl.py \
   --nsample 8 16 16 16 16  --drop_rate 0.1  --fea_dim 6  --classes 20  --loop $LOOP \
   \
   --test_batch 1  --cudnn_benchmark False \
-  --voxel_size $VOX_SIZE  --train_voxel_max 50000  --eval_voxel_max 50000  \
+  --voxel_size $VOX_SIZE  --train_voxel_max $N_PTS  --eval_voxel_max $N_PTS  \
   --mode_train 'train' --mode_eval 'val'  --aug 'elastic+mink'
 
 ### TEST (pre-process stage for test dataset)
@@ -98,7 +99,7 @@ python test_split_save.py \
   --nsample 8 16 16 16 16  --drop_rate 0.1  --fea_dim 6  --classes 20  --loop $LOOP \
   \
   --test_batch 1  --cudnn_benchmark False \
-  --voxel_size $VOX_SIZE  --train_voxel_max 50000  --eval_voxel_max 50000  \
+  --voxel_size $VOX_SIZE  --train_voxel_max $N_PTS  --eval_voxel_max $N_PTS  \
   --mode_train 'train' --mode_eval 'val'  --aug 'elastic+mink'
 
 ### TEST (evaluation)
@@ -126,7 +127,7 @@ python test_pl.py \
   --nsample 8 16 16 16 16  --drop_rate 0.1  --fea_dim 6  --classes 20  --loop $LOOP \
   \
   --test_batch 1  --cudnn_benchmark False \
-  --voxel_size $VOX_SIZE  --train_voxel_max 50000  --eval_voxel_max 50000  \
+  --voxel_size $VOX_SIZE  --train_voxel_max $N_PTS  --eval_voxel_max $N_PTS  \
   --mode_train 'train' --mode_eval 'val'  --aug 'elastic+mink'
 
   cd -

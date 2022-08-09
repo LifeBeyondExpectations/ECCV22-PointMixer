@@ -2,6 +2,8 @@ import numpy as np
 import random
 import torch
 import scipy
+import scipy.ndimage
+import scipy.interpolate
 
 
 class Compose(object):
