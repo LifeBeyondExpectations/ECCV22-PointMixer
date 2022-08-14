@@ -3,8 +3,8 @@
 
 ```bash
 # Set up a conda environment
-~/point-mixer-cls$ bash setup.sh pm-cls
-~/point-mixer-cls$ conda activate pm-cls
+~/ECCV22-PointMixer/obj_cls$ bash setup.sh pm-cls
+~/ECCV22-PointMixer/obj_cls$ conda activate pm-cls
 ```
 
 ## Usage
@@ -14,11 +14,9 @@
 
 By default, it will create a fold named "checkpoints/{modelName}-{msg}-{randomseed}", which includes args.txt, best_checkpoint.pth, last_checkpoint.pth, log.txt, out.txt.
 ```bash
-cd point-mixer-cls/classification_ModelNet40
-# train pointMixer
-python main.py --model pointMixer
+~/ECCV22-PointMixer$ cd obj_cls/classification_ModelNet40
 # train pointMixerFinal
-python main.py --model pointMixerFinal
+~/ECCV22-PointMixer/obj_cls/classification_ModelNet40$ python main.py --model pointMixerFinal
 # please add other paramemters as you wish.
 ```
 
@@ -26,11 +24,11 @@ python main.py --model pointMixerFinal
 To conduct voting testing, run
 ```bash
 # please modify the msg accrodingly
-python voting.py --model pointMixer --msg demo
+~/ECCV22-PointMixer/obj_cls/classification_ModelNet40$ python voting.py --model pointMixerFinal --msg demo
 ```
 
 
 ## Acknowledgement
 
-We heavily borrowed codes of [PointMLP (ICLR 2022)](https://github.com/ma-xu/pointMLP-pytorch). We thank the authors of PointMLP for their work.
-If you use our model or codes, please consider citing [PointMLP (ICLR 2022)](https://openreview.net/forum?id=3Pbra-_u76D) as well.
+We heavily borrowed codes of [PointMLP (ICLR 2022)](https://github.com/ma-xu/pointMLP-pytorch) and [PointTransformer (ICCV 2021)](https://github.com/POSTECH-CVLab/point-transformer). We thank the authors of PointMLP and PointTransformer for their work.
+If you use our model or codes, please consider citing them as well.
