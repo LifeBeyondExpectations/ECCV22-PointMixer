@@ -1,0 +1,10 @@
+# ninja log v5
+1	13169	1659420566040958912	/root/code/point-mixer-cls/pointnet2_ops_lib/build/temp.linux-x86_64-3.8/pointnet2_ops/_ext-src/src/group_points.o	d47f6c4885df4e37
+2	13389	1659420566264965744	/root/code/point-mixer-cls/pointnet2_ops_lib/build/temp.linux-x86_64-3.8/pointnet2_ops/_ext-src/src/sampling.o	29a198da4971be6d
+0	13477	1659420566352968429	/root/code/point-mixer-cls/pointnet2_ops_lib/build/temp.linux-x86_64-3.8/pointnet2_ops/_ext-src/src/ball_query.o	a244d6a26d0eb737
+2	13603	1659420566476972210	/root/code/point-mixer-cls/pointnet2_ops_lib/build/temp.linux-x86_64-3.8/pointnet2_ops/_ext-src/src/interpolate.o	e0a3753cfb308d30
+1	17854	1659420570725101776	/root/code/point-mixer-cls/pointnet2_ops_lib/build/temp.linux-x86_64-3.8/pointnet2_ops/_ext-src/src/bindings.o	fc634342395c4589
+0	25663	1659420578529339796	/root/code/point-mixer-cls/pointnet2_ops_lib/build/temp.linux-x86_64-3.8/pointnet2_ops/_ext-src/src/ball_query_gpu.o	2c122b705b81b182
+2	26296	1659420579161359071	/root/code/point-mixer-cls/pointnet2_ops_lib/build/temp.linux-x86_64-3.8/pointnet2_ops/_ext-src/src/group_points_gpu.o	5d786238de6b2f0a
+2	26631	1659420579497369319	/root/code/point-mixer-cls/pointnet2_ops_lib/build/temp.linux-x86_64-3.8/pointnet2_ops/_ext-src/src/interpolate_gpu.o	8360b88540efbdb1
+3	28765	1659420581637434586	/root/code/point-mixer-cls/pointnet2_ops_lib/build/temp.linux-x86_64-3.8/pointnet2_ops/_ext-src/src/sampling_gpu.o	d054bdee38c311dc

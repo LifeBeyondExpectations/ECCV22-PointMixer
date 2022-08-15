@@ -1,0 +1,31 @@
+program: main.py
+method: bayes
+metric:
+  name: val/best_OA
+  goal: maximize
+parameters:
+  learning_rate:
+    max: 0.2
+    min: 0.005
+    distribution: uniform
+  weight_decay:
+    max: 0.0004
+    min: 0.0001
+    distribution: uniform
+  batch_size:
+    max: 64
+    min: 16
+    distribution: int_uniform
+  model:
+    values:
+      - pointMixer
+      - pointMixerA
+      - pointMixerB
+      - pointMixerC
+      - pointMixerD
+      - pointMixerE
+    distribution: categorical
+  epoch:
+    max: 600
+    min: 75
+    distribution: int_uniform

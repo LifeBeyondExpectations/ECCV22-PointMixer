@@ -1,0 +1,21 @@
+# ninja log v5
+1	7461	1646244199385565867	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/sampling/sampling_cuda.o	d4cfc88e234a4fb6
+2	7896	1646244199813579327	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/interpolation/interpolation_cuda.o	c8870925fb8b900b
+2	7914	1646244199833579956	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/subtraction/subtraction_cuda.o	1a552883743f5449
+0	8430	1646244200353596307	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/knnquery/knnquery_cuda.o	bc55f4be3240597c
+2	8533	1646244200457599578	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/grouping/grouping_cuda.o	eb08849b7581619
+3	8653	1646244200577603351	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/aggregation/aggregation_cuda.o	40aaf3359319f8d4
+3	17852	1646244209769892353	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/aggregation/aggregation_cuda_kernel.o	7f52c701cef32f6a
+2	18070	1646244209989899269	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/interpolation/interpolation_cuda_kernel.o	d9b57a4dc9ff28cf
+2	18181	1646244210101902789	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/grouping/grouping_cuda_kernel.o	a20a510cfa608ca4
+2	18269	1646244210189905556	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/subtraction/subtraction_cuda_kernel.o	4ee6213433a288d1
+1	18318	1646244210237907064	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/knnquery/knnquery_cuda_kernel.o	c1c370bf7f8b011d
+1	18438	1646244210353910710	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/sampling/sampling_cuda_kernel.o	e5f073f6a3251eaf
+0	28000	1646244219906210927	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/pointops_api.o	78ed36dd7ba51423
+5	12425	1659420600734016958	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/interpolation/interpolation_cuda_kernel.o	d9b57a4dc9ff28cf
+4	12625	1659420600934023057	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/aggregation/aggregation_cuda_kernel.o	7f52c701cef32f6a
+5	12771	1659420601078027449	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/grouping/grouping_cuda_kernel.o	a20a510cfa608ca4
+5	12911	1659420601222031840	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/knnquery/knnquery_cuda_kernel.o	c1c370bf7f8b011d
+6	13004	1659420601314034645	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/subtraction/subtraction_cuda_kernel.o	4ee6213433a288d1
+5	13211	1659420601518040867	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/sampling/sampling_cuda_kernel.o	e5f073f6a3251eaf
+4	17822	1659420606122181267	/root/code/point-mixer-cls/pointops2/build/temp.linux-x86_64-3.8/src/pointops_api.o	78ed36dd7ba51423
