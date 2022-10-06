@@ -6,7 +6,11 @@ This is an official implementation for the paper,
 > [PointMixer: MLP-Mixer for Point Cloud Understanding](https://arxiv.org/pdf/2111.11187)<br/>
 > [Jaesung Choe*](https://sites.google.com/view/jaesungchoe), [Chunghyun Park*](https://chrockey.github.io/), [Francois Rameau](https://rameau-fr.github.io/), [Jaesik Park](https://jaesik.info/), and [In So Kweon](https://rcv.kaist.ac.kr)<br/>
 > European Conference on Computer Vision (**ECCV**), Tel Aviv, Israel, 2022<br/>
-> [Paper](https://arxiv.org/pdf/2111.11187) [Project] [YouTube] [PPT] [Dataset]<br/>
+> [[Paper](https://arxiv.org/pdf/2111.11187)]
+[[Video](https://youtu.be/96jY3DEjxxo)]
+[[VideoSlide](https://www.google.com/url?q=https%3A%2F%2Fwww.dropbox.com%2Fs%2Fzs5xs8cn565gmjw%2FECCV22_Video_Final.pptx%3Fdl%3D0&sa=D&sntz=1&usg=AOvVaw2XScQzRGomnUNiTfE5hi8F)]
+[[Poster](https://www.google.com/url?q=https%3A%2F%2Fwww.dropbox.com%2Fs%2Fim5r5jc2kdej2hb%2FECCV22_Poster.pdf%3Fdl%3D0&sa=D&sntz=1&usg=AOvVaw3fxZw3rjDb47-kv-JCjfu9)]
+<br/>
 
 (*: equal contribution)
 
