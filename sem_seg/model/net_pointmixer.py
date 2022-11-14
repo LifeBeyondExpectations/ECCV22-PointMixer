@@ -3,6 +3,10 @@ import subprocess
 import os
 import pdb
 import random
+from datetime import datetime
+curDT = datetime.now()
+date_time = curDT.strftime("%Y-%m-%d %H:%M")
+from utils.logger import GOATLogger
 from copy import deepcopy
 
 import cv2
@@ -60,6 +64,22 @@ class net_pointmixer(pl.LightningModule):
         # metrics
         # ------------
         self.resetMetrics()
+
+        # ------------
+        # logger
+        # ------------
+        if not bool(args.off_text_logger): # FIXME. pytorch-lightning does not support text logger.
+            mode = 'train' if bool(args.on_train) else 'test'
+            self.text_logger = GOATLogger(
+                mode=mode, 
+                save_root=args.MYCHECKPOINT,
+                log_freq=0,
+                base_name=f'log_{mode}_{date_time}',
+                n_iterations=0,
+                n_eval_iterations=0)
+        else:
+            self.text_logger = None
+            
                 
     def resetMetrics(self):
         self.intersection_meter = AverageMeter()
@@ -120,11 +140,18 @@ class net_pointmixer(pl.LightningModule):
         if (self.global_rank == 0) and (self.global_step % 1000 == 0):
 
             nvox = float(data_dict['coord'].size(0)) / float(self.train_batch)
-            self.logger.experiment["nvox_train"].log(nvox)
-
-            self.logger.experiment["current_epoch_train"].log(self.current_epoch)
-            self.logger.experiment["global_step_train"].log(self.global_step)
-            self.logger.experiment["lr_train"].log(self.scheduler.get_last_lr())
+            
+            if self.logger is not None:
+                self.logger.experiment["nvox_train"].log(nvox)
+                self.logger.experiment["current_epoch_train"].log(self.current_epoch)
+                self.logger.experiment["global_step_train"].log(self.global_step)
+                self.logger.experiment["lr_train"].log(self.scheduler.get_last_lr())
+            if self.text_logger is not None:
+                str_to_print = (
+                    f'train : epoch[{self.current_epoch:d}], steps[{self.global_step:d}] lr[{self.scheduler.get_last_lr()[0]:.4f}] | '
+                    f'nvox[{int(nvox):d}], '
+                )
+                self.text_logger.loginfo(str_to_print)
             print("TRAIN: epoch[%d], global_step[%d]: \n"%(self.current_epoch, self.global_step))
     
         self.resetMetrics() ######### WRONG
@@ -142,16 +169,7 @@ class net_pointmixer(pl.LightningModule):
         with torch.no_grad():
             outputs, losses = self.forward(data_dict)
             self.calcMetrics(batch_idx, outputs, data_dict, logName='val/accuracy')
-
-            # DEBUG
-            # if batch_idx == 0:                
-            #     coord = data_dict['coord']
-            #     feat = data_dict['feat']
-            #     pcd = o3d.geometry.PointCloud()
-            #     pcd.points = o3d.utility.Vector3dVector(coord.cpu().detach().numpy())
-            #     pcd.colors = o3d.utility.Vector3dVector(feat.cpu().detach().numpy())
-            #     o3d.io.write_point_cloud('/root/scannet_val_input.ply', pcd)
-          
+         
     @torch.no_grad()
     def validation_epoch_end(self, outputs):
         with torch.no_grad():
@@ -163,15 +181,24 @@ class net_pointmixer(pl.LightningModule):
             
             self.log("mIoU_val", mIoU)
             if self.global_rank == 0:
-                self.logger.experiment["mIoU_val"].log(mIoU)
-                self.logger.experiment["mAcc_val"].log(mAcc)
-                self.logger.experiment["allAcc_val"].log(allAcc)
-                self.logger.experiment["epoch_log"].log(self.current_epoch)
-                self.logger.experiment["lr_log"].log(self.scheduler.get_last_lr())
+                if self.logger is not None:
+                    self.logger.experiment["mIoU_val"].log(mIoU)
+                    self.logger.experiment["mAcc_val"].log(mAcc)
+                    self.logger.experiment["allAcc_val"].log(allAcc)
+                    self.logger.experiment["epoch_log"].log(self.current_epoch)
+                    self.logger.experiment["lr_log"].log(self.scheduler.get_last_lr())
 
-                self.logger.experiment["current_epoch_val"].log(self.current_epoch)
-                self.logger.experiment["global_step_val"].log(self.global_step)
-                self.logger.experiment["lr_val"].log(self.scheduler.get_last_lr())
+                    self.logger.experiment["current_epoch_val"].log(self.current_epoch)
+                    self.logger.experiment["global_step_val"].log(self.global_step)
+                    self.logger.experiment["lr_val"].log(self.scheduler.get_last_lr())
+                if self.text_logger is not None:
+                    str_to_print = (
+                        f'val : epoch[{self.current_epoch:d}], steps[{self.global_step:d}] lr[{self.scheduler.get_last_lr()[0]:.4f}] | '
+                        f'mIoU_val[{mIoU:.2f}], '
+                        f'mAcc_val[{mAcc:.2f}], '
+                        f'allAcc_val[{allAcc:.2f}], '
+                    )
+                    self.text_logger.loginfo(str_to_print)
 
             print("VAL: epoch[%d]: mIoU[%.3f] \n"%(self.current_epoch, mIoU))
             self.resetMetrics()
@@ -196,14 +223,22 @@ class net_pointmixer(pl.LightningModule):
             allAcc = sum(self.intersection_meter.sum) / (sum(self.target_meter.sum) + 1e-10)
             
             if self.global_rank == 0:
-                self.logger.experiment["mIoU_test_per_scene"].log(mIoU)
-                self.logger.experiment["mAcc_test_per_scene"].log(mAcc)
-                self.logger.experiment["allAcc_test_per_scene"].log(allAcc)
-            
-            str_to_log = "TEST_per_scene: epoch[%d]: mIoU[%.3f], mAcc[%.3f], allAcc[%.3f] \n"%(
-                self.current_epoch, mIoU, mAcc, allAcc)
-            print(str_to_log)
-            self.logger.experiment['logs'].log(str_to_log)
+                if self.logger is not None:
+                    self.logger.experiment["mIoU_test_per_scene"].log(mIoU)
+                    self.logger.experiment["mAcc_test_per_scene"].log(mAcc)
+                    self.logger.experiment["allAcc_test_per_scene"].log(allAcc)
+
+                    str_to_log = "TEST_per_scene: epoch[%d]: mIoU[%.3f], mAcc[%.3f], allAcc[%.3f] \n"%(self.current_epoch, mIoU, mAcc, allAcc)
+                    print(str_to_log)
+                    self.logger.experiment['logs'].log(str_to_log)
+                if self.text_logger is not None:
+                    str_to_print = (
+                        f'test | '
+                        f'mIoU_test_per_scene[{mIoU:.4f}], '
+                        f'mAcc_test_per_scene[{mAcc:.4f}], '
+                        f'allAcc_test_per_scene[{allAcc:.4f}], '
+                    )
+                    self.text_logger.loginfo(str_to_print)
 
         self.resetMetrics()
 

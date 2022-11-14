@@ -104,8 +104,11 @@ def my_args():
     # ------------
     # logger
     # ------------
+    parser.add_argument('--on_neptune', action='store_true')
+    parser.add_argument('--off_text_logger', action='store_true')
     parser.add_argument('--neptune_proj', type=str, default=None, required=True)
     parser.add_argument('--print_freq', type=int, default=1)
     parser.add_argument('--neptune_id', type=str, default=None)
+    parser.add_argument('--neptune_key', type=str, default=None)
 
     return parser

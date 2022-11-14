@@ -26,6 +26,7 @@ docker start pointmixer
 docker attach pointmixer
 
 # dataset prepration 
+# update PATH in the following scripts
 
 # Train / Test
 cd /code/ECCV22-PointMixer/sem_seg
@@ -39,6 +40,7 @@ cd ./conda
 conda env create -f environment.yml
 
 # dataset prepration 
+# update PATH in the following scripts
 
 # Train / Test
 git clone https://github.com/LifeBeyondExpectations/ECCV22-PointMixer
