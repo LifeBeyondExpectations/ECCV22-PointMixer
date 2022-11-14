@@ -68,7 +68,7 @@ class net_pointmixer(pl.LightningModule):
         # ------------
         # logger
         # ------------
-        if bool(args.off_text_logger):
+        if not bool(args.off_text_logger): # FIXME. pytorch-lightning does not support text logger.
             mode = 'train' if bool(args.on_train) else 'test'
             self.text_logger = GOATLogger(
                 mode=mode, 
@@ -149,7 +149,7 @@ class net_pointmixer(pl.LightningModule):
             if self.text_logger is not None:
                 str_to_print = (
                     f'train : epoch[{self.current_epoch:d}], steps[{self.global_step:d}] lr[{self.scheduler.get_last_lr()[0]:.4f}] | '
-                    f'nvox[{nvox:d}], '
+                    f'nvox[{int(nvox):d}], '
                 )
                 self.text_logger.loginfo(str_to_print)
             print("TRAIN: epoch[%d], global_step[%d]: \n"%(self.current_epoch, self.global_step))
