@@ -37,7 +37,7 @@ class CudaClearCacheCallback(pl.Callback):
 
 
 # https://github.com/PyTorchLightning/deep-learning-project-template/blob/master/project/lit_mnist.py
-def cli_main():
+def jaesungchoe():
     # ------------
     # args
     # ------------
@@ -84,28 +84,29 @@ def cli_main():
     # ------------
     # logger (neptune.__version__ == 0.14.2)
     # ------------
-    from pytorch_lightning.loggers import NeptuneLogger
-    neptune_path = os.path.join(args.MYCHECKPOINT, 'neptune.npz')
-    if args.resume and os.path.exists(neptune_path):
-        neptune_info = np.load(neptune_path)
-        neptune_logger = NeptuneLogger(
-            api_key="eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiI4MmJmODE2Ni1jZDE0LTRjY2MtYjViYS0wMjAwNWYzOWQzMjIifQ==", 
-            project=args.neptune_proj)
-        neptune_logger._run_short_id = str(neptune_info['id'])
-        print(">> re-use the neptune: id[%s]"%(neptune_info['id']))
+    if args.on_neptune:
+        from pytorch_lightning.loggers import NeptuneLogger
+        neptune_path = os.path.join(args.MYCHECKPOINT, 'neptune.npz')
+        if args.resume and os.path.exists(neptune_path):
+            neptune_info = np.load(neptune_path)
+            logger = NeptuneLogger(
+                api_key=args.neptune_key, 
+                project=args.neptune_proj)
+            logger._run_short_id = str(neptune_info['id'])
+            print(">> re-use the neptune: id[%s]"%(neptune_info['id']))
+        else:
+            logger = NeptuneLogger(
+                api_key=args.neptune_key, 
+                project=args.neptune_proj)
+            logger.experiment["sys/tags"].add('train_pl.py')
+            for key, value in (vars(args)).items(): logger.experiment['params/' + key] = value
+            neptune_file_path = os.path.join(args.MYCHECKPOINT, 'neptune.npz')
+            neptune_id_str = str(logger._run_short_id)
+            if (neptune_id_str != 'None') and (not os.path.exists(neptune_file_path)):
+                np.savez(neptune_file_path, project=args.neptune_proj, id=neptune_id_str)
+                for _ in range(10): print(">> saved the neptune: id[%s]"%(neptune_id_str))
     else:
-        neptune_logger = NeptuneLogger(
-            api_key="eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiI4MmJmODE2Ni1jZDE0LTRjY2MtYjViYS0wMjAwNWYzOWQzMjIifQ==", 
-            project=args.neptune_proj)
-        neptune_logger.experiment["sys/tags"].add('train_pl.py')
-        for key, value in (vars(args)).items():
-            neptune_logger.experiment['params/' + key] = value
-        neptune_file_path = os.path.join(args.MYCHECKPOINT, 'neptune.npz')
-        neptune_id_str = str(neptune_logger._run_short_id)
-        if (neptune_id_str != 'None') and (not os.path.exists(neptune_file_path)):
-            np.savez(neptune_file_path, project=args.neptune_proj, id=neptune_id_str)
-            for _ in range(10):
-                print(">> saved the neptune: id[%s]"%(neptune_id_str))
+        logger = None
 
     # ------------
     # model
@@ -135,7 +136,7 @@ def cli_main():
         resume_from_checkpoint = os.path.join(args.MYCHECKPOINT, args.load_model)
 
     trainer = pl.Trainer(
-        logger=neptune_logger,
+        logger=logger,
         check_val_every_n_epoch=args.CHECKPOINT_PERIOD,
         callbacks=[checkpoint_callback, CudaClearCacheCallback()],
         gpus=args.NUM_GPUS,        
@@ -150,8 +151,9 @@ def cli_main():
         trainer.fit(model, train_loader, val_loader)
         print("TRAIN END")
 
-    neptune_logger.experiment["sys/failed"] = False
-    neptune_logger.experiment.stop()
+    if args.on_neptune:
+        logger.experiment["sys/failed"] = False
+        logger.experiment.stop()
 
 if __name__ == '__main__':
-    cli_main()
+    jaesungchoe()
