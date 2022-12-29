@@ -4,21 +4,21 @@
 SCANNET_TRAIN=/root/dataset/deepmvs/train
 SCANNET_TEST=/root/dataset/deepmvs/test
 SCANNET_SEMSEG=/root/dataset/scannet_semseg
-S3DIS=/home/jaesungchoe/dataset/S3DIS/s3dis/
+S3DIS=/root/dataset/S3DIS/s3dis/
 SAVEROOT=$PWD"/exp"
 
 ### Setup 
-MYSHELL="./scripts/run_s3dis_PointTransformer.sh"
+MYSHELL=`basename "$0"` # self script file name, e.g., 'run-0.sh'
 DATE_TIME=`date +"%Y-%m-%d"`
 NEPTUNE_PROJ="jaesung.choe/ECCV22-PointMixer-SemSeg"
 COMPUTER="S3DIS-PointTransformer-00"
 export MASTER_ADDR='localhost'
 export NODE_RANK=0
-export CUDA_VISIBLE_DEVICES=2
+export CUDA_VISIBLE_DEVICES=0,1
 
 ### Params
 WORKERS=4
-NUM_GPUS=1
+NUM_GPUS=2
 NUM_TRAIN_BATCH=4
 NUM_VAL_BATCH=2
 NUM_TEST_BATCH=4
@@ -34,11 +34,12 @@ TRANSUP="TransitionUp"
 
 MYCHECKPOINT="${SAVEROOT}/${DATE_TIME}__${DATASET}__\
 ${INTRALAYER}__${INTERLAYER}__${TRANSDOWN}__${TRANSUP}__${COMPUTER}/"
+
 reset
 rm -rf $MYCHECKPOINT
 mkdir -p $MYCHECKPOINT
-# cp -a "../../sem_seg" $MYCHECKPOINT
-cp -a $MYSHELL $MYCHECKPOINT
+cp -a "model" $MYCHECKPOINT
+cp -a "script/"$MYSHELL $MYCHECKPOINT
 sh env_setup.sh
 
 ### TRAIN
@@ -57,7 +58,7 @@ python train_pl.py \
   \
   --neptune_proj $NEPTUNE_PROJ \
   --epochs 60  --CHECKPOINT_PERIOD 1  --lr 0.1 \
-  --dataset $DATASET  --distributed_backend 'dp' --optim 'SGD' \
+  --dataset $DATASET  --distributed_backend 'ddp' --optim 'SGD' \
   \
   --model 'net_pointmixer' --arch $ARCH  \
   --intraLayer $INTRALAYER  --interLayer $INTERLAYER \

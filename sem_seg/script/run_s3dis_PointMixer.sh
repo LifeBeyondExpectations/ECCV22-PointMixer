@@ -1,17 +1,14 @@
 #!/bin/bash
 
 ### Path
-PU_GAN_MESH=/root/dataset/PU-GAN
 SCANNET_TRAIN=/root/dataset/deepmvs/train
 SCANNET_TEST=/root/dataset/deepmvs/test
 SCANNET_SEMSEG=/root/dataset/scannet_semseg
-SHAPENET=/root/dataset/shapenet_part/shapenetcore_partanno_segmentation_benchmark_v0/
-SHAPNETCORE=/root/dataset/shapenetcore/ShapeNetCore.v2/
 S3DIS=/root/dataset/S3DIS/s3dis/
 SAVEROOT="/root/PointMixerSemSeg/"
 
 ### Setup 
-MYSHELL="run_s3dis_PointMixer.sh"
+MYSHELL=`basename "$0"` # self script file name, e.g., 'run-0.sh'
 DATE_TIME=`date +"%Y-%m-%d"`
 NEPTUNE_PROJ="jaesung.choe/ECCV22-PointMixer-SemSeg"
 COMPUTER="S3DIS-PointMixer-00"
@@ -37,12 +34,12 @@ TRANSUP="SymmetricTransitionUpBlock"
 
 MYCHECKPOINT="${SAVEROOT}/${DATE_TIME}__${DATASET}__\
 ${INTRALAYER}__${INTERLAYER}__${TRANSDOWN}__${TRANSUP}__${COMPUTER}/"
+
 reset
 rm -rf $MYCHECKPOINT
 mkdir -p $MYCHECKPOINT
-# cp -a "../../sem_seg" $MYCHECKPOINT
-cp -a $MYSHELL $MYCHECKPOINT
-cd ../
+cp -a "model" $MYCHECKPOINT
+cp -a "script/"$MYSHELL $MYCHECKPOINT
 sh env_setup.sh
 
 ### TRAIN
@@ -180,5 +177,3 @@ python test_pl.py \
   --nsample 8 16 16 16 16  --drop_rate 0.1  --fea_dim 6  --classes 13 \
   \
   --voxel_size 0.04  --eval_voxel_max 40000  --test_batch 10
-
-cd -
