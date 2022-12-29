@@ -63,8 +63,8 @@ python train_pl.py \
   --s3dis_root $S3DIS \
   \
   --neptune_proj $NEPTUNE_PROJ \
-  --epochs 60  --CHECKPOINT_PERIOD 1  --lr 0.1 \
-  --dataset $DATASET  --distributed_backend 'dp' --optim 'SGD' \
+  --epochs 60  --check_val_every_n_epoch 1  --lr 0.1 \
+  --dataset $DATASET  --optim 'SGD' \
   \
   --model 'net_pointmixer' --arch $ARCH  \
   --intraLayer $INTRALAYER  --interLayer $INTERLAYER \
@@ -91,8 +91,8 @@ python train_pl.py \
 #   --s3dis_root $S3DIS \
 #   \
 #   --neptune_proj $NEPTUNE_PROJ \
-#   --epochs 60  --CHECKPOINT_PERIOD 1  --lr 0.1 \
-#   --dataset $DATASET  --distributed_backend 'dp' --optim 'SGD' \
+#   --epochs 60  --check_val_every_n_epoch 1  --lr 0.1 \
+#   --dataset $DATASET  --optim 'SGD' \
 #   \
 #   --model 'net_pointmixer' --arch $ARCH  \
 #   --intraLayer $INTRALAYER  --interLayer $INTERLAYER \
@@ -119,8 +119,8 @@ python test_pl.py \
   --s3dis_root $S3DIS \
   \
   --neptune_proj $NEPTUNE_PROJ \
-  --epochs 60  --CHECKPOINT_PERIOD 1  --lr 0.1 \
-  --dataset $DATASET  --distributed_backend 'dp' --optim 'SGD' \
+  --epochs 60  --check_val_every_n_epoch 1  --lr 0.1 \
+  --dataset $DATASET  --optim 'SGD' \
   \
   --model 'net_pointmixer' --arch $ARCH  \
   --intraLayer $INTRALAYER  --interLayer $INTERLAYER \
