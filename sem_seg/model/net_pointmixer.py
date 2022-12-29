@@ -6,7 +6,6 @@ import random
 from datetime import datetime
 curDT = datetime.now()
 date_time = curDT.strftime("%Y-%m-%d %H:%M")
-from utils.logger import GOATLogger
 from copy import deepcopy
 
 import cv2
@@ -14,6 +13,7 @@ import numpy as np
 import open3d as o3d
 import pytorch_lightning as pl
 import matplotlib.pyplot as plt
+from colorama import Fore, Back, Style
 
 import torch
 import torch.nn as nn
@@ -23,6 +23,8 @@ import torch.distributed as dist
 
 from .network.get_network import get_network
 from utils.common_util import AverageMeter, intersectionAndUnionGPU
+from utils.logger import GOATLogger
+from dataset import get as get_dataset
 
 seed=0
 pl.seed_everything(seed) # , workers=True
@@ -53,8 +55,6 @@ class net_pointmixer(pl.LightningModule):
         self.train_batch = int(args.train_batch)
         self.val_batch = int(args.val_batch)
 
-        self.distributed_backend = str(args.distributed_backend)
-
         # ------------
         # model
         # ------------        
@@ -78,8 +78,7 @@ class net_pointmixer(pl.LightningModule):
                 n_iterations=0,
                 n_eval_iterations=0)
         else:
-            self.text_logger = None
-            
+            self.text_logger = None 
                 
     def resetMetrics(self):
         self.intersection_meter = AverageMeter()
@@ -96,7 +95,7 @@ class net_pointmixer(pl.LightningModule):
             feat = data_dict['feat']
             target = data_dict['target']
             offset = data_dict['offset']
-        
+
         output = self.model([coord, feat, offset])
         pred_dict['output'] = output
         if target.shape[-1] == 1:
@@ -118,10 +117,10 @@ class net_pointmixer(pl.LightningModule):
         n = count.item()
         intersection, union, target = \
             intersectionAndUnionGPU(output, target, self.classes, self.ignore_label)
-        if self.distributed_backend != 'dp':
-            dist.all_reduce(intersection)
-            dist.all_reduce(union)
-            dist.all_reduce(target)
+        # sync tensors in different gpus.
+        dist.all_reduce(intersection)
+        dist.all_reduce(union)
+        dist.all_reduce(target)
         intersection = intersection.cpu().detach().numpy()
         union = union.cpu().detach().numpy()
         target = target.cpu().detach().numpy()
@@ -132,7 +131,7 @@ class net_pointmixer(pl.LightningModule):
 
         accuracy = sum(self.intersection_meter.val) / (sum(self.target_meter.val) + 1e-10)
         if batch_idx % self.print_freq == 0:
-            self.log(logName, accuracy)
+            self.log(logName, accuracy, batch_size=1, sync_dist=True)
 
     def training_step(self, data_dict, batch_idx):
         outputs, losses = self.forward(data_dict)
@@ -179,7 +178,7 @@ class net_pointmixer(pl.LightningModule):
             mAcc = np.mean(accuracy_class)
             allAcc = sum(self.intersection_meter.sum) / (sum(self.target_meter.sum) + 1e-10)
             
-            self.log("mIoU_val", mIoU)
+            self.log("mIoU_val", mIoU, batch_size=1, sync_dist=True)
             if self.global_rank == 0:
                 if self.logger is not None:
                     self.logger.experiment["mIoU_val"].log(mIoU)
@@ -275,3 +274,33 @@ class net_pointmixer(pl.LightningModule):
         optimizers.append(optimizer)
 
         return optimizers, schedulers
+
+    # def train_dataloader(self):
+    #     dataset = get_dataset(self.args.dataset)
+    #     train_loader_kwargs = \
+    #         {
+    #             "batch_size": self.args.train_batch,
+    #             "num_workers": self.args.train_worker,
+    #             "collate_fn": dataset.TrainValCollateFn,
+    #             "pin_memory": True,
+    #             "drop_last": False,
+    #             "shuffle": True,
+    #         }
+    #     train_loader = torch.utils.data.DataLoader(
+    #         dataset.myImageFloder(self.args, mode=self.args.mode_train), **train_loader_kwargs)
+    #     return train_loader
+    
+    # def val_dataloader(self):
+    #     dataset = get_dataset(self.args.dataset)
+    #     val_loader_kwargs = \
+    #         {
+    #             "batch_size": self.args.val_batch,
+    #             "num_workers": self.args.val_worker,
+    #             "collate_fn": dataset.TrainValCollateFn,
+    #             "pin_memory": True,
+    #             "drop_last": False,
+    #             "shuffle": False,
+    #         }
+    #     val_loader = torch.utils.data.DataLoader(
+    #         dataset.myImageFloder(self.args, mode=self.args.mode_eval), **val_loader_kwargs)
+    #     return val_loader

@@ -85,7 +85,6 @@ def my_args():
     # ------------
     parser.add_argument('--AMP_LEVEL', type=str, default='O0') # 'O0' == 32bit, # '01' == 16 bit
     parser.add_argument('--PRECISION', type=int, default=32)
-    parser.add_argument('--distributed_backend', type=str, default='ddp') # 'O0' == 32bit
     parser.add_argument('--load_model', default=None)
     parser.add_argument('--resume', action='store_true', default=False)
     parser.add_argument('--on_train', type=str2bool, default=True)
@@ -94,7 +93,7 @@ def my_args():
     parser.add_argument("--computer", type=str, default=None)
     parser.add_argument('--NUM_GPUS', type=int, default=1)
     parser.add_argument('--epochs', type=int, default=10)
-    parser.add_argument('--CHECKPOINT_PERIOD', type=int, default=1) 
+    parser.add_argument('--check_val_every_n_epoch', type=int, default=1) 
     parser.add_argument('--strict_load', type=str2bool, default=True)
     
     parser.add_argument('--MASTER_ADDR', type=str, default='localhost')
