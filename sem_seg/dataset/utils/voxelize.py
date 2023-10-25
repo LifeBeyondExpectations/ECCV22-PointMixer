@@ -1,9 +1,10 @@
-import pdb
-
 import numpy as np
-from collections import Sequence
-
-import torch
+try:
+    # 👇️ using Python 3.10+
+    from collections.abc import Sequence
+except ImportError:
+    # 👇️ using Python 3.10-
+    from collections import Sequence
 
 
 def fnv_hash_vec(arr):

@@ -7,6 +7,7 @@ import glob
 
 import numpy as np
 import SharedArray as SA
+from colorama import Fore, Back, Style
 
 import torch
 from torch.utils.data import Dataset
@@ -118,20 +119,24 @@ class myImageFloder(Dataset):
                 [item for item in data_list if 'Area_{}'.format(self.test_area) in item]
         else:
             raise NotImplemented
-
+        print(Fore.LIGHTYELLOW_EX + 'init Shared Array' + Style.RESET_ALL)
         for item in self.data_list:
             if not os.path.exists("/dev/shm/{}".format(item)):
                 data_path = os.path.join(self.data_root, item + '.npy')
                 data = np.load(data_path)  # xyzrgbl, N*7
                 sa_create("shm://{}".format(item), data)
         self.data_idx = np.arange(len(self.data_list))
-        print("Totally {} samples in {} set.".format(len(self.data_idx), self.mode))
+        print(Fore.LIGHTYELLOW_EX + 
+            "Totally {} samples in {} set.".format(len(self.data_idx), self.mode)
+             + Style.RESET_ALL)
     
     def load_test_data(self):
         filename = self.test_split + '__' + '*__npts_{:09d}.npz'.format(self.voxel_max)
         self.data_list = sorted(glob.glob(os.path.join(self.s3dis_root, 'test_split', filename)))
         self.data_idx = np.arange(len(self.data_list))
-        print("Totally {} samples in {} set.".format(len(self.data_idx), self.mode))
+        print(Fore.LIGHTYELLOW_EX + 
+            "Totally {} samples in {} set.".format(len(self.data_idx), self.mode) 
+            + Style.RESET_ALL)
 
     def __getitem__(self, idx):
         if (self.mode == 'train') or (self.mode == 'val'):
@@ -167,7 +172,3 @@ class myImageFloder(Dataset):
 
         else:
             raise NotImplemented
-
-        
-
-    

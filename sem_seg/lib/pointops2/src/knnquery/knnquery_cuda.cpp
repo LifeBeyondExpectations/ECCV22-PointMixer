@@ -1,5 +1,5 @@
 #include <vector>
-#include <THC/THC.h>
+// #include <THC/THC.h> // Not exists in torch>1.10.0
 #include <torch/serialize/tensor.h>
 #include <ATen/cuda/CUDAContext.h>
 #include "knnquery_cuda_kernel.h"
